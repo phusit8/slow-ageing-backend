@@ -9,6 +9,11 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap');
     body { font-family: 'Prompt', sans-serif; }
+    .filter-btn.active {
+      background-color: #2d7a3a !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(45, 122, 58, 0.25);
+    }
   </style>
 </head>
 <body class="bg-[#f5f7f5]">
@@ -23,9 +28,58 @@
         <h1 class="text-3xl sm:text-4xl font-extrabold text-[#1a2e1a]">ความก้าวหน้า</h1>
       </div>
 
-      <!-- Card 1: ความสำเร็จโดยรวม -->
+      <!-- ========================================== -->
+      <!-- 🎛️ Filter Section: ตัวกรองช่วงเวลา -->
+      <!-- ========================================== -->
+      <div class="bg-white p-2 sm:p-2.5 rounded-3xl border border-stone-200 shadow-sm mb-5">
+        <div class="grid grid-cols-3 gap-1.5 sm:gap-2">
+          <button 
+            id="tabWeekly" 
+            onclick="setFilter('weekly')" 
+            class="filter-btn py-3 sm:py-3.5 px-2 rounded-2xl font-extrabold text-lg sm:text-xl transition-all cursor-pointer text-center bg-stone-100 text-stone-700 hover:bg-stone-200"
+          >
+            รายสัปดาห์
+          </button>
+          <button 
+            id="tabMonthly" 
+            onclick="setFilter('monthly')" 
+            class="filter-btn active py-3 sm:py-3.5 px-2 rounded-2xl font-extrabold text-lg sm:text-xl transition-all cursor-pointer text-center bg-stone-100 text-stone-700 hover:bg-stone-200"
+          >
+            รายเดือน
+          </button>
+          <button 
+            id="tabYearly" 
+            onclick="setFilter('yearly')" 
+            class="filter-btn py-3 sm:py-3.5 px-2 rounded-2xl font-extrabold text-lg sm:text-xl transition-all cursor-pointer text-center bg-stone-100 text-stone-700 hover:bg-stone-200"
+          >
+            รายปี
+          </button>
+        </div>
+
+        <!-- Sub-filter: ตัวเลือกเดือน/ปี เพิ่มเติม -->
+        <div id="subFilterContainer" class="mt-3 pt-3 border-t border-stone-100 flex items-center justify-between px-2">
+          <span class="text-base sm:text-lg font-bold text-stone-600 flex items-center gap-1.5">
+            <span class="iconify text-2xl text-[#2d7a3a]" data-icon="mdi:filter-variant"></span>
+            <span id="subFilterLabel">เลือกเดือน:</span>
+          </span>
+          <select 
+            id="subFilterSelect" 
+            onchange="onSubFilterChange()" 
+            class="px-4 py-2 rounded-xl border-2 border-stone-200 text-base sm:text-lg font-bold text-[#1a2e1a] bg-[#f9fbf9] focus:outline-none focus:ring-2 focus:ring-[#2d7a3a] cursor-pointer"
+          >
+            <!-- Inject options by JS -->
+          </select>
+        </div>
+      </div>
+
+      <!-- Card 1: ความสำเร็จโดยรวม (คำนวณตาม Filter) -->
       <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-stone-200 mb-5">
-        <h3 class="text-2xl font-extrabold text-[#1a2e1a] mb-4">ความสำเร็จโดยรวม</h3>
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-2xl font-extrabold text-[#1a2e1a]">ความสำเร็จ<span id="card1PeriodText">ประจำเดือน</span></h3>
+          <span id="periodBadge" class="text-base font-bold text-[#2d7a3a] bg-emerald-50 px-3.5 py-1 rounded-xl">
+            สิงหาคม 2569
+          </span>
+        </div>
         <div class="flex items-center gap-6">
           <div class="relative w-28 h-28 sm:w-32 sm:h-32 shrink-0">
             <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
@@ -39,88 +93,76 @@
             </div>
           </div>
           <div>
-            <p class="text-2xl sm:text-3xl font-extrabold text-[#1a2e1a]">ทำได้ <span id="daysCompleted" class="text-[#2d7a3a]">0</span> วัน</p>
-            <p class="text-lg font-bold text-stone-500 mt-0.5">จากทั้งหมด 31 วัน</p>
+            <p class="text-2xl sm:text-3xl font-extrabold text-[#1a2e1a]">
+              ทำได้ <span id="daysCompleted" class="text-[#2d7a3a]">0</span> <span id="unitText">วัน</span>
+            </p>
+            <p class="text-lg font-bold text-stone-500 mt-0.5">จากทั้งหมด <span id="totalDaysText">31</span> <span id="unitText2">วัน</span></p>
           </div>
         </div>
       </div>
 
-      <!-- Card 2: กราฟรายเดือน -->
+      <!-- Card 2: กราฟแสดงความก้าวหน้า -->
       <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-stone-200 mb-5">
         <div class="flex items-center justify-between mb-4">
-          <h3 class="text-2xl font-extrabold text-[#1a2e1a]">กราฟรายเดือน</h3>
-          <span class="text-base font-bold text-[#2d7a3a] flex items-center gap-1.5 bg-emerald-50 px-3 py-1 rounded-xl">
-            <span class="iconify text-xl" data-icon="mdi:calendar-outline"></span> สิงหาคม 2569
+          <h3 id="chartTitle" class="text-2xl font-extrabold text-[#1a2e1a]">กราฟความก้าวหน้า</h3>
+          <span id="chartSubtitle" class="text-base font-bold text-[#2d7a3a] flex items-center gap-1.5 bg-emerald-50 px-3 py-1 rounded-xl">
+            <span class="iconify text-xl" data-icon="mdi:calendar-outline"></span> <span id="chartSubtitleText">สิงหาคม 2569</span>
           </span>
         </div>
+
         <div class="flex gap-2">
-          <div class="flex flex-col justify-between text-xs sm:text-sm text-stone-500 font-bold pr-1 py-0.5" style="height: 130px;">
+          <div class="flex flex-col justify-between text-xs sm:text-sm text-stone-500 font-bold pr-1 py-0.5" style="height: 140px;">
             <span>100%</span><span>75%</span><span>50%</span><span>25%</span><span>0%</span>
           </div>
-          <div id="dailyChartContainer" class="flex-1 flex items-end gap-[2px]" style="height: 130px;"></div>
+          <div id="chartContainer" class="flex-1 flex items-end gap-1 sm:gap-1.5" style="height: 140px;">
+            <!-- Inject Bars by JS -->
+          </div>
         </div>
-        <div class="flex justify-between ml-10 mt-2 text-xs sm:text-sm font-bold text-stone-500">
-          <span>วันที่ 1</span><span>5</span><span>10</span><span>15</span><span>20</span><span>25</span><span>30</span>
+
+        <!-- Labels ใต้แท่งกราฟ -->
+        <div id="chartLabelsContainer" class="flex ml-10 mt-2 text-xs sm:text-sm font-bold text-stone-600">
+          <!-- Inject Labels by JS -->
         </div>
-        <div class="flex items-center gap-2 mt-4 px-4 py-3 bg-emerald-50 rounded-2xl">
+
+        <!-- Insight สรุปผล -->
+        <div id="insightBox" class="flex items-center gap-2.5 mt-5 px-4 py-3.5 bg-emerald-50 rounded-2xl border border-emerald-200/60">
           <span class="iconify text-2xl text-[#2d7a3a]" data-icon="mdi:chart-line"></span>
-          <span class="text-base sm:text-lg font-bold text-[#2d7a3a]" id="avgMonthlyText"></span>
+          <span class="text-base sm:text-lg font-bold text-[#2d7a3a]" id="avgText">เฉลี่ย: 80% (ทำได้ดีมาก)</span>
         </div>
       </div>
 
-      <!-- Card 3: กราฟรายปี -->
-      <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-stone-200 mb-5">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-2xl font-extrabold text-[#1a2e1a]">กราฟรายปี</h3>
-          <span class="text-base font-bold text-[#2d7a3a] flex items-center gap-1.5 bg-emerald-50 px-3 py-1 rounded-xl">
-            <span class="iconify text-xl" data-icon="mdi:calendar-outline"></span> ปี 2569
-          </span>
-        </div>
-        <div class="flex gap-2">
-          <div class="flex flex-col justify-between text-xs sm:text-sm text-stone-500 font-bold pr-1 py-0.5" style="height: 130px;">
-            <span>100%</span><span>75%</span><span>50%</span><span>25%</span><span>0%</span>
-          </div>
-          <div id="monthlyChartContainer" class="flex-1 flex items-end gap-1" style="height: 130px;"></div>
-        </div>
-        <div id="monthlyLabelsContainer" class="flex ml-10 mt-2"></div>
-        <div class="flex items-center gap-2 mt-4 px-4 py-3 bg-amber-50 rounded-2xl">
-          <span class="text-2xl">⭐</span>
-          <span class="text-base sm:text-lg font-bold text-amber-800">เดือนที่ดีที่สุด: กรกฎาคม (86%)</span>
-        </div>
-      </div>
-
-      <!-- Card 4: สถิติของคุณ -->
+      <!-- Card 3: สถิติแยกตามสถานะ -->
       <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-stone-200 mb-5">
         <h3 class="text-2xl font-extrabold text-[#1a2e1a] mb-4">สถิติของท่าน</h3>
         <div class="grid grid-cols-3 gap-3">
-          <div class="flex flex-col items-center gap-1 py-3 px-2 bg-emerald-50 rounded-2xl">
+          <div class="flex flex-col items-center gap-1 py-3 px-2 bg-emerald-50 rounded-2xl border border-emerald-100">
             <span class="iconify text-3xl text-[#2d7a3a]" data-icon="mdi:check-circle-outline"></span>
-            <span class="text-3xl font-extrabold text-[#2d7a3a]">24</span>
+            <span id="statDone" class="text-3xl font-extrabold text-[#2d7a3a]">24</span>
             <span class="text-base font-bold text-stone-700 text-center leading-tight">ทำครบ</span>
           </div>
-          <div class="flex flex-col items-center gap-1 py-3 px-2 bg-amber-50 rounded-2xl">
+          <div class="flex flex-col items-center gap-1 py-3 px-2 bg-amber-50 rounded-2xl border border-amber-100">
             <span class="iconify text-3xl text-amber-500" data-icon="mdi:circle-half-full"></span>
-            <span class="text-3xl font-extrabold text-amber-600">4</span>
+            <span id="statPartial" class="text-3xl font-extrabold text-amber-600">4</span>
             <span class="text-base font-bold text-stone-700 text-center leading-tight">ทำบางส่วน</span>
           </div>
-          <div class="flex flex-col items-center gap-1 py-3 px-2 bg-stone-100 rounded-2xl">
+          <div class="flex flex-col items-center gap-1 py-3 px-2 bg-stone-100 rounded-2xl border border-stone-200">
             <span class="iconify text-3xl text-stone-500" data-icon="mdi:close-circle-outline"></span>
-            <span class="text-3xl font-extrabold text-stone-600">3</span>
+            <span id="statMissed" class="text-3xl font-extrabold text-stone-600">3</span>
             <span class="text-base font-bold text-stone-700 text-center leading-tight">ไม่ได้ทำ</span>
           </div>
         </div>
       </div>
 
-      <!-- Card 5: สถิติการทำต่อเนื่อง -->
+      <!-- Card 4: สถิติการทำต่อเนื่อง -->
       <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-stone-200">
         <h3 class="text-2xl font-extrabold text-[#1a2e1a] mb-4">สถิติการทำต่อเนื่อง</h3>
         <div class="grid grid-cols-2 gap-4">
-          <div class="text-center py-4 bg-emerald-50/70 rounded-2xl">
+          <div class="text-center py-4 bg-emerald-50/70 rounded-2xl border border-emerald-100">
             <p class="text-base sm:text-lg text-stone-700 font-bold mb-1">ทำต่อเนื่องตอนนี้</p>
             <p class="text-4xl sm:text-5xl font-extrabold text-[#2d7a3a]">7</p>
             <p class="text-base text-stone-600 font-bold mt-0.5">วัน</p>
           </div>
-          <div class="text-center py-4 bg-emerald-50/70 rounded-2xl">
+          <div class="text-center py-4 bg-emerald-50/70 rounded-2xl border border-emerald-100">
             <p class="text-base sm:text-lg text-stone-700 font-bold mb-1">ทำต่อเนื่องสูงสุด</p>
             <p class="text-4xl sm:text-5xl font-extrabold text-[#2d7a3a]">24</p>
             <p class="text-base text-stone-600 font-bold mt-0.5">วัน</p>
@@ -132,69 +174,237 @@
   </div>
 
   <script>
-    const DAILY_DATA = [
-      85, 70, 100, 60, 90, 75, 80, 100, 65, 50,
-      80, 90, 75, 100, 70, 85, 60, 95, 80, 70,
-      100, 75, 85, 90, 65, 100, 80, 70, 95, 85,
+    // ข้อมูลจำลองสำหรับ Filter แต่ละประเภท
+    const DATA_WEEKLY = [
+      { label: "จ.", value: 100 },
+      { label: "อ.", value: 100 },
+      { label: "พ.", value: 75 },
+      { label: "พฤ.", value: 100 },
+      { label: "ศ.", value: 50 },
+      { label: "ส.", value: 100 },
+      { label: "อา.", value: 100 },
     ];
 
-    const MONTHLY_DATA = [
-      { month: "ม.ค.", value: 72 }, { month: "ก.พ.", value: 68 },
-      { month: "มี.ค.", value: 75 }, { month: "เม.ย.", value: 80 },
-      { month: "พ.ค.", value: 70 }, { month: "มิ.ย.", value: 78 },
-      { month: "ก.ค.", value: 86 }, { month: "ส.ค.", value: 78 },
-      { month: "ก.ย.", value: 74 }, { month: "ต.ค.", value: 72 },
-      { month: "พ.ย.", value: 76 }, { month: "ธ.ค.", value: 70 },
+    const DATA_MONTHLY_ALL = {
+      "สิงหาคม": [
+        85, 70, 100, 60, 90, 75, 80, 100, 65, 50,
+        80, 90, 75, 100, 70, 85, 60, 95, 80, 70,
+        100, 75, 85, 90, 65, 100, 80, 70, 95, 85,
+      ],
+      "กรกฎาคม": [
+        100, 100, 80, 90, 100, 85, 90, 100, 75, 80,
+        90, 100, 85, 100, 90, 85, 70, 100, 85, 75,
+        100, 80, 90, 95, 70, 100, 85, 75, 100, 90, 100
+      ],
+      "มิถุนายน": [
+        70, 75, 80, 60, 85, 70, 75, 90, 60, 50,
+        75, 80, 70, 90, 65, 80, 60, 85, 75, 65,
+        90, 70, 80, 85, 60, 90, 75, 65, 85, 80
+      ]
+    };
+
+    const DATA_YEARLY = [
+      { label: "ม.ค.", value: 72 }, { label: "ก.พ.", value: 68 },
+      { label: "มี.ค.", value: 75 }, { label: "เม.ย.", value: 80 },
+      { label: "พ.ค.", value: 70 }, { label: "มิ.ย.", value: 78 },
+      { label: "ก.ค.", value: 86 }, { label: "ส.ค.", value: 78 },
+      { label: "ก.ย.", value: 74 }, { label: "ต.ค.", value: 72 },
+      { label: "พ.ย.", value: 76 }, { label: "ธ.ค.", value: 70 },
     ];
 
-    function init() {
-      // 1. ความสำเร็จโดยรวม
-      const overallPercent = 78;
-      const daysCompleted = 24;
-      document.getElementById("overallPercent").innerText = overallPercent;
-      document.getElementById("daysCompleted").innerText = daysCompleted;
+    let currentFilter = 'monthly'; // 'weekly' | 'monthly' | 'yearly'
+    let selectedSubFilter = 'สิงหาคม';
 
+    function setFilter(type) {
+      currentFilter = type;
+
+      // ปรับ Style ปุ่ม Tab
+      document.getElementById('tabWeekly').classList.toggle('active', type === 'weekly');
+      document.getElementById('tabMonthly').classList.toggle('active', type === 'monthly');
+      document.getElementById('tabYearly').classList.toggle('active', type === 'yearly');
+
+      // อัปเดตตัวเลือก Sub-Filter
+      updateSubFilterOptions();
+      renderDashboard();
+    }
+
+    function updateSubFilterOptions() {
+      const subFilterContainer = document.getElementById('subFilterContainer');
+      const subFilterLabel = document.getElementById('subFilterLabel');
+      const subFilterSelect = document.getElementById('subFilterSelect');
+
+      if (currentFilter === 'weekly') {
+        subFilterLabel.innerText = "เลือกสัปดาห์:";
+        subFilterSelect.innerHTML = `
+          <option value="current">สัปดาห์นี้ (18-24 ส.ค.)</option>
+          <option value="prev1">สัปดาห์ที่แล้ว (11-17 ส.ค.)</option>
+          <option value="prev2">2 สัปดาห์ก่อน (4-10 ส.ค.)</option>
+        `;
+      } else if (currentFilter === 'monthly') {
+        subFilterLabel.innerText = "เลือกเดือน:";
+        subFilterSelect.innerHTML = `
+          <option value="สิงหาคม" selected>สิงหาคม 2569</option>
+          <option value="กรกฎาคม">กรกฎาคม 2569</option>
+          <option value="มิถุนายน">มิถุนายน 2569</option>
+        `;
+      } else if (currentFilter === 'yearly') {
+        subFilterLabel.innerText = "เลือกปี:";
+        subFilterSelect.innerHTML = `
+          <option value="2569" selected>ปี 2569</option>
+          <option value="2568">ปี 2568</option>
+        `;
+      }
+    }
+
+    function onSubFilterChange() {
+      const subFilterSelect = document.getElementById('subFilterSelect');
+      selectedSubFilter = subFilterSelect.value;
+      renderDashboard();
+    }
+
+    function updateDonutChart(percent) {
+      document.getElementById("overallPercent").innerText = percent;
       const circle = document.getElementById("overallCircle");
       const radius = 38;
       const circumference = 2 * Math.PI * radius;
-      const offset = circumference - (overallPercent / 100) * circumference;
+      const offset = circumference - (percent / 100) * circumference;
       circle.style.strokeDashoffset = offset;
-
-      // 2. กราฟรายเดือน
-      const dailyContainer = document.getElementById("dailyChartContainer");
-      dailyContainer.innerHTML = "";
-      DAILY_DATA.forEach(val => {
-        const bar = document.createElement("div");
-        bar.className = "flex-1 rounded-t-sm transition-all duration-500";
-        bar.style.height = `${val}%`;
-        bar.style.backgroundColor = val === 100 ? "#2d7a3a" : val >= 80 ? "#529e5e" : "#86c891";
-        dailyContainer.appendChild(bar);
-      });
-
-      const avg = Math.round(DAILY_DATA.reduce((a, b) => a + b, 0) / DAILY_DATA.length);
-      document.getElementById("avgMonthlyText").innerText = `เฉลี่ยทั้งเดือน: ${avg}% (ทำได้ดีมาก)`;
-
-      // 3. กราฟรายปี
-      const monthlyContainer = document.getElementById("monthlyChartContainer");
-      const monthlyLabels = document.getElementById("monthlyLabelsContainer");
-      monthlyContainer.innerHTML = "";
-      monthlyLabels.innerHTML = "";
-
-      MONTHLY_DATA.forEach(item => {
-        const bar = document.createElement("div");
-        bar.className = "flex-1 rounded-t-md transition-all duration-500";
-        bar.style.height = `${item.value}%`;
-        bar.style.backgroundColor = item.month === "ก.ค." ? "#2d7a3a" : "#86c891";
-        monthlyContainer.appendChild(bar);
-
-        const label = document.createElement("span");
-        label.className = "flex-1 text-center text-xs sm:text-sm font-bold text-stone-600";
-        label.innerText = item.month;
-        monthlyLabels.appendChild(label);
-      });
     }
 
-    init();
+    function renderDashboard() {
+      const chartContainer = document.getElementById("chartContainer");
+      const chartLabels = document.getElementById("chartLabelsContainer");
+      chartContainer.innerHTML = "";
+      chartLabels.innerHTML = "";
+
+      if (currentFilter === 'weekly') {
+        // === โหมดรายสัปดาห์ ===
+        document.getElementById("card1PeriodText").innerText = "ประจำสัปดาห์";
+        document.getElementById("periodBadge").innerText = "สัปดาห์นี้";
+        document.getElementById("chartTitle").innerText = "กราฟรายสัปดาห์";
+        document.getElementById("chartSubtitleText").innerText = "จันทร์ - อาทิตย์";
+        document.getElementById("unitText").innerText = "วัน";
+        document.getElementById("unitText2").innerText = "วัน";
+        document.getElementById("totalDaysText").innerText = "7";
+
+        let totalScore = 0;
+        let done = 0, partial = 0, missed = 0;
+
+        DATA_WEEKLY.forEach(item => {
+          totalScore += item.value;
+          if (item.value === 100) done++;
+          else if (item.value > 0) partial++;
+          else missed++;
+
+          // Bar
+          const bar = document.createElement("div");
+          bar.className = "flex-1 rounded-t-xl transition-all duration-500";
+          bar.style.height = `${item.value}%`;
+          bar.style.backgroundColor = item.value === 100 ? "#2d7a3a" : item.value >= 75 ? "#48a258" : "#f59e0b";
+          chartContainer.appendChild(bar);
+
+          // Label
+          const label = document.createElement("span");
+          label.className = "flex-1 text-center text-base font-extrabold text-stone-700";
+          label.innerText = item.label;
+          chartLabels.appendChild(label);
+        });
+
+        const avg = Math.round(totalScore / DATA_WEEKLY.length);
+        document.getElementById("daysCompleted").innerText = done;
+        updateDonutChart(avg);
+        document.getElementById("avgText").innerText = `เฉลี่ยทั้งสัปดาห์: ${avg}% (ทำสำเร็จ ${done} จาก 7 วัน)`;
+        document.getElementById("statDone").innerText = done;
+        document.getElementById("statPartial").innerText = partial;
+        document.getElementById("statMissed").innerText = missed;
+
+      } else if (currentFilter === 'monthly') {
+        // === โหมดรายเดือน ===
+        const monthName = DATA_MONTHLY_ALL[selectedSubFilter] ? selectedSubFilter : "สิงหาคม";
+        const dailyData = DATA_MONTHLY_ALL[monthName] || DATA_MONTHLY_ALL["สิงหาคม"];
+
+        document.getElementById("card1PeriodText").innerText = "ประจำเดือน";
+        document.getElementById("periodBadge").innerText = `${monthName} 2569`;
+        document.getElementById("chartTitle").innerText = "กราฟรายเดือน";
+        document.getElementById("chartSubtitleText").innerText = `${monthName} 2569`;
+        document.getElementById("unitText").innerText = "วัน";
+        document.getElementById("unitText2").innerText = "วัน";
+        document.getElementById("totalDaysText").innerText = dailyData.length;
+
+        let totalScore = 0;
+        let done = 0, partial = 0, missed = 0;
+
+        dailyData.forEach(val => {
+          totalScore += val;
+          if (val === 100) done++;
+          else if (val >= 60) partial++;
+          else missed++;
+
+          const bar = document.createElement("div");
+          bar.className = "flex-1 rounded-t-sm transition-all duration-500";
+          bar.style.height = `${val}%`;
+          bar.style.backgroundColor = val === 100 ? "#2d7a3a" : val >= 80 ? "#529e5e" : "#86c891";
+          chartContainer.appendChild(bar);
+        });
+
+        // Label วันที่ 1, 5, 10, 15, 20, 25, 30
+        chartLabels.className = "flex justify-between ml-10 mt-2 text-xs sm:text-sm font-bold text-stone-600 w-full pr-1";
+        chartLabels.innerHTML = `
+          <span>1</span><span>5</span><span>10</span><span>15</span><span>20</span><span>25</span><span>${dailyData.length}</span>
+        `;
+
+        const avg = Math.round(totalScore / dailyData.length);
+        document.getElementById("daysCompleted").innerText = done;
+        updateDonutChart(avg);
+        document.getElementById("avgText").innerText = `เฉลี่ยทั้งเดือน ${monthName}: ${avg}% (ทำครบ ${done} วัน)`;
+        document.getElementById("statDone").innerText = done;
+        document.getElementById("statPartial").innerText = partial;
+        document.getElementById("statMissed").innerText = missed;
+
+      } else if (currentFilter === 'yearly') {
+        // === โหมดรายปี ===
+        document.getElementById("card1PeriodText").innerText = "ประจำปี";
+        document.getElementById("periodBadge").innerText = "ปี 2569";
+        document.getElementById("chartTitle").innerText = "กราฟรายปี (12 เดือน)";
+        document.getElementById("chartSubtitleText").innerText = "ปี 2569";
+        document.getElementById("unitText").innerText = "เดือน";
+        document.getElementById("unitText2").innerText = "เดือน";
+        document.getElementById("totalDaysText").innerText = "12";
+
+        let totalScore = 0;
+        let doneMonths = 0;
+
+        DATA_YEARLY.forEach(item => {
+          totalScore += item.value;
+          if (item.value >= 75) doneMonths++;
+
+          // Bar
+          const bar = document.createElement("div");
+          bar.className = "flex-1 rounded-t-md transition-all duration-500";
+          bar.style.height = `${item.value}%`;
+          bar.style.backgroundColor = item.label === "ก.ค." ? "#2d7a3a" : "#86c891";
+          chartContainer.appendChild(bar);
+
+          // Label
+          const label = document.createElement("span");
+          label.className = "flex-1 text-center text-xs sm:text-sm font-extrabold text-stone-700";
+          label.innerText = item.label;
+          chartLabels.appendChild(label);
+        });
+
+        const avg = Math.round(totalScore / DATA_YEARLY.length);
+        document.getElementById("daysCompleted").innerText = doneMonths;
+        updateDonutChart(avg);
+        document.getElementById("avgText").innerText = `เฉลี่ยทั้งปี 2569: ${avg}% (เดือนที่ดีที่สุด: ก.ค. 86%)`;
+        document.getElementById("statDone").innerText = doneMonths;
+        document.getElementById("statPartial").innerText = 12 - doneMonths;
+        document.getElementById("statMissed").innerText = 0;
+      }
+    }
+
+    // เริ่มต้นระบบ
+    updateSubFilterOptions();
+    renderDashboard();
   </script>
 </body>
 </html>
