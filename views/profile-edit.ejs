@@ -8,99 +8,99 @@
   <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
   <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap');
     body { font-family: 'Prompt', sans-serif; }
   </style>
 </head>
-<body class="bg-white">
+<body class="bg-[#f5f7f5]">
   <div class="flex flex-col min-h-screen w-full">
-    <div class="w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto flex-1 flex flex-col px-5 pt-5 pb-6">
+    <div class="w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto flex-1 flex flex-col px-5 pt-6 pb-12">
 
       <!-- Header -->
-      <div class="relative flex items-center justify-center mb-5">
-        <a href="/profile" class="absolute left-0 p-1 -ml-1 text-black cursor-pointer hover:bg-stone-100 rounded-xl transition-colors">
-          <span class="iconify text-2xl" data-icon="mdi:arrow-left"></span>
+      <div class="relative flex items-center justify-center mb-6">
+        <a href="/profile" class="absolute left-0 p-2 -ml-2 text-black cursor-pointer hover:bg-stone-200/60 rounded-2xl transition-colors">
+          <span class="iconify text-3xl sm:text-4xl" data-icon="mdi:arrow-left"></span>
         </a>
-        <h1 class="text-xl font-bold text-black">แก้ไขข้อมูลส่วนตัว</h1>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-[#1a2e1a]">แก้ไขข้อมูลส่วนตัว</h1>
       </div>
 
       <!-- Avatar -->
-      <div class="flex flex-col items-center mb-5" id="avatarContainer">
-        <div class="w-20 h-20 rounded-full flex items-center justify-center shadow-md ring-4 ring-emerald-100" style="background: #d4edda;">
-          <span class="iconify text-5xl text-[#2d7a3a]" data-icon="mdi:account-circle"></span>
+      <div class="flex flex-col items-center mb-6" id="avatarContainer">
+        <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full flex items-center justify-center shadow-md ring-4 ring-emerald-100" style="background: #d4edda;">
+          <span class="iconify text-6xl text-[#2d7a3a]" data-icon="mdi:account-circle"></span>
         </div>
       </div>
 
       <!-- ฟอร์มแก้ไข -->
-      <div class="space-y-4 flex-1">
+      <div class="space-y-6 flex-1 bg-white p-6 sm:p-8 rounded-3xl border border-stone-200 shadow-sm">
         
         <div>
-          <label class="text-base font-bold text-[#1a2e1a] block mb-1.5">ชื่อ-นามสกุล <span class="text-red-500">*</span></label>
-          <input type="text" id="profileName" class="w-full px-4 py-3 rounded-xl border-2 text-base focus:outline-none focus:ring-2 focus:ring-[#2d7a3a] font-medium" style="border-color: #d1ded1; background: #f9fbf9; color: #1a2e1a;" placeholder="กรอกชื่อและนามสกุล" />
+          <label class="text-xl sm:text-2xl font-extrabold text-[#1a2e1a] block mb-2">ชื่อ-นามสกุล <span class="text-red-500">*</span></label>
+          <input type="text" id="profileName" class="w-full px-5 py-4 rounded-2xl border-2 text-xl sm:text-2xl focus:outline-none focus:ring-4 focus:ring-[#2d7a3a]/30 font-semibold" style="border-color: #c5d6c5; background: #f9fbf9; color: #1a2e1a;" placeholder="กรอกชื่อและนามสกุล" />
         </div>
 
         <div>
-          <label class="text-base font-bold text-[#1a2e1a] block mb-1.5">ชุมชน / หมู่บ้าน <span class="text-red-500">*</span></label>
+          <label class="text-xl sm:text-2xl font-extrabold text-[#1a2e1a] block mb-2">ชุมชน / หมู่บ้าน <span class="text-red-500">*</span></label>
           <div class="relative">
-            <select id="profileVillage" class="w-full px-4 py-3 rounded-xl border-2 text-base focus:outline-none focus:ring-2 focus:ring-[#2d7a3a] transition-all font-medium appearance-none cursor-pointer" style="border-color: #d1ded1; background: #f9fbf9; color: #1a2e1a;">
+            <select id="profileVillage" class="w-full px-5 py-4 rounded-2xl border-2 text-xl sm:text-2xl focus:outline-none focus:ring-4 focus:ring-[#2d7a3a]/30 transition-all font-semibold appearance-none cursor-pointer" style="border-color: #c5d6c5; background: #f9fbf9; color: #1a2e1a;">
               <option value="" disabled selected>- เลือกชุมชน -</option>
               <option value="ชุมชนบ้านสุขใจ">ชุมชนบ้านสุขใจ</option>
               <option value="ชุมชนรักษ์ป่า">ชุมชนรักษ์ป่า</option>
               <option value="ชุมชนพัฒนา">ชุมชนพัฒนา</option>
               <option value="ชุมชนมิตรภาพ">ชุมชนมิตรภาพ</option>
             </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-stone-500">
-              <span class="iconify text-2xl" data-icon="mdi:chevron-down"></span>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-stone-600">
+              <span class="iconify text-3xl sm:text-4xl" data-icon="mdi:chevron-down"></span>
             </div>
           </div>
         </div>
 
         <div>
-          <label class="text-base font-bold text-[#1a2e1a] block mb-1.5">วันเกิด</label>
-          <input type="text" id="birthday" class="w-full px-4 py-3 rounded-xl border-2 text-base focus:outline-none focus:ring-2 focus:ring-[#2d7a3a] font-medium" style="border-color: #d1ded1; background: #f9fbf9; color: #1a2e1a;" placeholder="เช่น 15 พฤษภาคม 2490" />
+          <label class="text-xl sm:text-2xl font-extrabold text-[#1a2e1a] block mb-2">วันเกิด</label>
+          <input type="text" id="birthday" class="w-full px-5 py-4 rounded-2xl border-2 text-xl sm:text-2xl focus:outline-none focus:ring-4 focus:ring-[#2d7a3a]/30 font-semibold" style="border-color: #c5d6c5; background: #f9fbf9; color: #1a2e1a;" placeholder="เช่น 15 พฤษภาคม 2490" />
         </div>
 
         <div>
-          <label class="text-base font-bold text-[#1a2e1a] block mb-1.5">เพศ</label>
+          <label class="text-xl sm:text-2xl font-extrabold text-[#1a2e1a] block mb-2">เพศ</label>
           <div class="relative">
-            <select id="gender" class="w-full px-4 py-3 rounded-xl border-2 text-base focus:outline-none focus:ring-2 focus:ring-[#2d7a3a] transition-all font-medium appearance-none cursor-pointer" style="border-color: #d1ded1; background: #f9fbf9; color: #1a2e1a;">
+            <select id="gender" class="w-full px-5 py-4 rounded-2xl border-2 text-xl sm:text-2xl focus:outline-none focus:ring-4 focus:ring-[#2d7a3a]/30 transition-all font-semibold appearance-none cursor-pointer" style="border-color: #c5d6c5; background: #f9fbf9; color: #1a2e1a;">
               <option value="" disabled selected>- เลือกเพศ -</option>
               <option value="ชาย">ชาย</option>
               <option value="หญิง">หญิง</option>
             </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-stone-500">
-              <span class="iconify text-2xl" data-icon="mdi:chevron-down"></span>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-stone-600">
+              <span class="iconify text-3xl sm:text-4xl" data-icon="mdi:chevron-down"></span>
             </div>
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="text-base font-bold text-[#1a2e1a] block mb-1.5">ส่วนสูง (ซม.)</label>
-            <input type="text" id="height" class="w-full px-4 py-3 rounded-xl border-2 text-base focus:outline-none focus:ring-2 focus:ring-[#2d7a3a] font-medium" style="border-color: #d1ded1; background: #f9fbf9; color: #1a2e1a;" placeholder="158" />
+            <label class="text-xl sm:text-2xl font-extrabold text-[#1a2e1a] block mb-2">ส่วนสูง (ซม.)</label>
+            <input type="text" id="height" class="w-full px-5 py-4 rounded-2xl border-2 text-xl sm:text-2xl focus:outline-none focus:ring-4 focus:ring-[#2d7a3a]/30 font-semibold" style="border-color: #c5d6c5; background: #f9fbf9; color: #1a2e1a;" placeholder="158" />
           </div>
           <div>
-            <label class="text-base font-bold text-[#1a2e1a] block mb-1.5">น้ำหนัก (กก.)</label>
-            <input type="text" id="weight" class="w-full px-4 py-3 rounded-xl border-2 text-base focus:outline-none focus:ring-2 focus:ring-[#2d7a3a] font-medium" style="border-color: #d1ded1; background: #f9fbf9; color: #1a2e1a;" placeholder="58" />
+            <label class="text-xl sm:text-2xl font-extrabold text-[#1a2e1a] block mb-2">น้ำหนัก (กก.)</label>
+            <input type="text" id="weight" class="w-full px-5 py-4 rounded-2xl border-2 text-xl sm:text-2xl focus:outline-none focus:ring-4 focus:ring-[#2d7a3a]/30 font-semibold" style="border-color: #c5d6c5; background: #f9fbf9; color: #1a2e1a;" placeholder="58" />
           </div>
         </div>
 
         <div>
-          <label class="text-base font-bold text-[#1a2e1a] block mb-1.5">โรคประจำตัว</label>
-          <input type="text" id="disease" class="w-full px-4 py-3 rounded-xl border-2 text-base focus:outline-none focus:ring-2 focus:ring-[#2d7a3a] font-medium" style="border-color: #d1ded1; background: #f9fbf9; color: #1a2e1a;" placeholder="เช่น ความดันโลหิตสูง หรือ ไม่มี" />
+          <label class="text-xl sm:text-2xl font-extrabold text-[#1a2e1a] block mb-2">โรคประจำตัว</label>
+          <input type="text" id="disease" class="w-full px-5 py-4 rounded-2xl border-2 text-xl sm:text-2xl focus:outline-none focus:ring-4 focus:ring-[#2d7a3a]/30 font-semibold" style="border-color: #c5d6c5; background: #f9fbf9; color: #1a2e1a;" placeholder="เช่น ความดันโลหิตสูง หรือ ไม่มี" />
         </div>
 
         <div>
-          <label class="text-base font-bold text-[#1a2e1a] block mb-1.5">การแพ้ยา</label>
-          <input type="text" id="allergy" class="w-full px-4 py-3 rounded-xl border-2 text-base focus:outline-none focus:ring-2 focus:ring-[#2d7a3a] font-medium" style="border-color: #d1ded1; background: #f9fbf9; color: #1a2e1a;" placeholder="เช่น แอสไพริน หรือ ไม่มี" />
+          <label class="text-xl sm:text-2xl font-extrabold text-[#1a2e1a] block mb-2">การแพ้ยา</label>
+          <input type="text" id="allergy" class="w-full px-5 py-4 rounded-2xl border-2 text-xl sm:text-2xl focus:outline-none focus:ring-4 focus:ring-[#2d7a3a]/30 font-semibold" style="border-color: #c5d6c5; background: #f9fbf9; color: #1a2e1a;" placeholder="เช่น แอสไพริน หรือ ไม่มี" />
         </div>
 
       </div>
 
       <!-- ปุ่มบันทึก -->
-      <div class="pt-5">
-        <button id="saveBtn" disabled class="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl font-bold text-white text-lg transition-all shadow-md cursor-not-allowed opacity-50" style="background: #2d7a3a;">
-          <span class="iconify text-xl" data-icon="mdi:check"></span>
+      <div class="pt-8">
+        <button id="saveBtn" disabled class="w-full flex items-center justify-center gap-3 py-5 sm:py-6 rounded-2xl font-extrabold text-white text-2xl sm:text-3xl transition-all shadow-lg cursor-not-allowed opacity-50" style="background: #2d7a3a;">
+          <span class="iconify text-3xl sm:text-4xl" data-icon="mdi:check"></span>
           <span id="saveBtnText">บันทึกข้อมูล</span>
         </button>
       </div>
@@ -141,7 +141,7 @@
           if (parsed.allergy) inputs.allergy.value = parsed.allergy;
           
           if (parsed.pictureUrl) {
-            avatarContainer.innerHTML = `<img src="${parsed.pictureUrl}" alt="Profile" class="w-20 h-20 rounded-full object-cover border-3 border-white shadow-md ring-4 ring-emerald-100" />`;
+            avatarContainer.innerHTML = `<img src="${parsed.pictureUrl}" alt="Profile" class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-white shadow-md ring-4 ring-emerald-100" />`;
           }
         } catch (e) {
           console.error("Failed to load profile:", e);
@@ -154,7 +154,7 @@
         if (liff.isLoggedIn()) {
           const profile = await liff.getProfile();
           if (profile.pictureUrl && !savedData?.includes("pictureUrl")) {
-            avatarContainer.innerHTML = `<img src="${profile.pictureUrl}" alt="Profile" class="w-20 h-20 rounded-full object-cover border-3 border-white shadow-md ring-4 ring-emerald-100" />`;
+            avatarContainer.innerHTML = `<img src="${profile.pictureUrl}" alt="Profile" class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-white shadow-md ring-4 ring-emerald-100" />`;
           }
         }
       } catch (err) {

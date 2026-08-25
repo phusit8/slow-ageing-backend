@@ -8,10 +8,10 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Iconify -->
   <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
-  <!-- LIFF SDK (ถ้าต้องการใช้ liff.init ในฝั่ง EJS) -->
+  <!-- LIFF SDK -->
   <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap');
     body {
       font-family: 'Prompt', sans-serif;
     }
@@ -20,65 +20,65 @@
 <body class="min-h-screen" style="background-color: #f5f7f5;">
 
   <!-- Loading State (ซ่อนเมื่อโหลดเสร็จ) -->
-  <div id="loadingState" class="flex flex-col min-h-screen w-full items-center justify-center">
+  <div id="loadingState" class="flex flex-col min-h-screen w-full items-center justify-center p-6">
     <div
-      class="w-20 h-20 rounded-2xl flex items-center justify-center mb-4 shadow-lg"
+      class="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl flex items-center justify-center mb-6 shadow-xl"
       style="background: linear-gradient(135deg, #2d7a3a, #4caf50);"
     >
-      <span class="iconify text-white text-5xl" data-icon="mdi:heart-pulse"></span>
+      <span class="iconify text-white text-6xl" data-icon="mdi:heart-pulse"></span>
     </div>
-    <p class="text-lg font-bold text-[#2d7a3a] animate-pulse">
+    <p class="text-2xl sm:text-3xl font-extrabold text-[#2d7a3a] animate-pulse text-center">
       กำลังเตรียมระบบ...
     </p>
   </div>
 
   <!-- Main UI (แสดงเมื่อโหลดเสร็จ) -->
-  <div id="mainContent" class="hidden flex flex-col min-h-screen w-full justify-between py-6 sm:py-10">
-    <div class="w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto flex-1 flex flex-col justify-between px-5 sm:px-6">
+  <div id="mainContent" class="hidden flex flex-col min-h-screen w-full justify-between py-8 sm:py-12">
+    <div class="w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto flex-1 flex flex-col justify-between px-6 sm:px-8">
       
       <!-- Top Section -->
       <div class="flex-1 flex flex-col items-center justify-center px-4 pt-6 sm:pt-10">
         <div
-          class="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl flex items-center justify-center mb-6 shadow-xl"
+          class="w-32 h-32 sm:w-40 sm:h-40 rounded-3xl flex items-center justify-center mb-6 sm:mb-8 shadow-xl"
           style="background: linear-gradient(135deg, #2d7a3a, #4caf50);"
         >
-          <span class="iconify text-white text-6xl sm:text-7xl" data-icon="mdi:heart-pulse"></span>
+          <span class="iconify text-white text-7xl sm:text-8xl" data-icon="mdi:heart-pulse"></span>
         </div>
 
-        <h1 class="text-3xl sm:text-4xl font-extrabold text-center mb-2 tracking-tight" style="color: #1a2e1a;">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-center mb-3 tracking-tight" style="color: #1a2e1a;">
           Slow Aging
         </h1>
 
-        <p class="text-xl sm:text-2xl font-bold text-center mb-1" style="color: #2d7a3a;">
+        <p class="text-2xl sm:text-3xl font-extrabold text-center mb-2" style="color: #2d7a3a;">
           ระบบดูแลสุขภาพผู้สูงอายุ
         </p>
 
-        <p class="text-base sm:text-lg font-semibold text-center" style="color: #6b7b6b;">
+        <p class="text-xl sm:text-2xl font-bold text-center" style="color: #4a5d4e;">
           จังหวัดมหาสารคาม
         </p>
       </div>
 
       <!-- Action Button Section -->
-      <div class="w-full pt-8 pb-4 space-y-3">
+      <div class="w-full pt-8 pb-6 space-y-4">
         
         <!-- ข้อความแจ้งเตือน Error -->
-        <div id="errorAlert" class="hidden px-4 py-3 rounded-xl bg-red-50 border border-red-200 mb-2">
-          <p id="errorText" class="text-sm text-red-700 font-medium text-center"></p>
+        <div id="errorAlert" class="hidden px-5 py-4 rounded-2xl bg-red-50 border-2 border-red-200 mb-3">
+          <p id="errorText" class="text-base sm:text-lg text-red-700 font-bold text-center"></p>
         </div>
 
         <!-- ปุ่มเข้าสู่ระบบด้วย LINE -->
         <button
           id="loginBtn"
-          class="w-full flex items-center justify-center gap-3 py-4 sm:py-5 px-6 rounded-2xl shadow-lg text-xl sm:text-2xl font-extrabold transition-transform cursor-pointer active:scale-[0.98]"
+          class="w-full flex items-center justify-center gap-3 py-5 sm:py-6 px-6 rounded-2xl shadow-xl text-2xl sm:text-3xl font-extrabold transition-transform cursor-pointer active:scale-[0.98] hover:opacity-95"
           style="background: #06c755; color: white;"
         >
-          <svg viewBox="0 0 24 24" class="w-7 h-7 sm:w-8 sm:h-8 fill-current shrink-0">
+          <svg viewBox="0 0 24 24" class="w-9 h-9 sm:w-10 sm:h-10 fill-current shrink-0">
             <path d="M12 2C6.48 2 2 5.92 2 10.72c0 3.11 1.72 5.85 4.33 7.54L5.25 22l4.72-2.52c.66.18 1.34.27 2.03.27 5.52 0 10-3.92 10-8.75C22 5.92 17.52 2 12 2z" />
           </svg>
           <span id="loginBtnText">เข้าสู่ระบบด้วย LINE</span>
         </button>
 
-        <p class="text-sm sm:text-base text-center mt-2 font-medium" style="color: #7a8a7a;">
+        <p class="text-base sm:text-lg text-center mt-3 font-semibold" style="color: #556655;">
           ระบบนี้รองรับการเข้าสู่ระบบผ่าน LINE เท่านั้น
         </p>
       </div>
@@ -104,9 +104,6 @@
     // 🔴 กำหนด LIFF ID
     const LIFF_ID = "<%= LIFF_ID %>"; 
 
-    // หากไม่ต้องการใช้ LIFF จริงๆ ในหน้านี้ (แค่ทำ UI ล้วนๆ) ให้ข้ามฟังก์ชัน liff.init ไปเลย
-    // แต่ถ้าต้องการใช้ LIFF ให้ Uncomment โค้ดด้านล่างนี้
-    
     async function initializeLiff() {
       try {
         await liff.init({ liffId: LIFF_ID });
@@ -120,7 +117,7 @@
           if (savedProfile) {
             try {
               const parsed = JSON.parse(savedProfile);
-              if (parsed.setupCompleted) {
+              if (parsed.profileName) {
                 window.location.replace("/home");
                 return;
               }

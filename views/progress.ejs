@@ -7,126 +7,123 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap');
     body { font-family: 'Prompt', sans-serif; }
   </style>
 </head>
 <body class="bg-[#f5f7f5]">
   <div class="flex flex-col min-h-screen w-full">
-    <div class="w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto flex-1 flex flex-col px-5 pt-5 pb-8">
+    <div class="w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto flex-1 flex flex-col px-5 pt-6 pb-12">
 
       <!-- Header -->
-      <div class="relative flex items-center justify-center mb-5">
-        <a href="/home" class="absolute left-0 p-1 -ml-1 text-black cursor-pointer hover:bg-stone-100 rounded-xl transition-colors">
-          <span class="iconify text-2xl" data-icon="mdi:arrow-left"></span>
+      <div class="relative flex items-center justify-center mb-6">
+        <a href="/home" class="absolute left-0 p-2 -ml-2 text-black cursor-pointer hover:bg-stone-200/60 rounded-2xl transition-colors">
+          <span class="iconify text-3xl sm:text-4xl" data-icon="mdi:arrow-left"></span>
         </a>
-        <h1 class="text-xl font-bold text-black">ความก้าวหน้า</h1>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-[#1a2e1a]">ความก้าวหน้า</h1>
       </div>
 
       <!-- Card 1: ความสำเร็จโดยรวม -->
-      <div class="bg-white rounded-2xl p-5 shadow-xs border border-stone-200/80 mb-3.5">
-        <h3 class="text-base font-bold text-black mb-3">ความสำเร็จโดยรวม</h3>
-        <div class="flex items-center gap-5">
-          <div class="relative w-24 h-24 shrink-0">
+      <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-stone-200 mb-5">
+        <h3 class="text-2xl font-extrabold text-[#1a2e1a] mb-4">ความสำเร็จโดยรวม</h3>
+        <div class="flex items-center gap-6">
+          <div class="relative w-28 h-28 sm:w-32 sm:h-32 shrink-0">
             <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="38" fill="transparent" stroke="#e2f5e8" stroke-width="10" />
-              <circle id="overallCircle" cx="50" cy="50" r="38" fill="transparent" stroke="#2d7a3a" stroke-width="10" stroke-dasharray="238.7" stroke-dashoffset="238.7" stroke-linecap="round" class="transition-all duration-700 ease-out" />
+              <circle cx="50" cy="50" r="38" fill="transparent" stroke="#e2f5e8" stroke-width="11" />
+              <circle id="overallCircle" cx="50" cy="50" r="38" fill="transparent" stroke="#2d7a3a" stroke-width="11" stroke-dasharray="238.7" stroke-dashoffset="238.7" stroke-linecap="round" class="transition-all duration-700 ease-out" />
             </svg>
             <div class="absolute inset-0 flex items-center justify-center">
-              <span class="text-xl font-extrabold text-[#1a2e1a]">
-                <span id="overallPercent">0</span><span class="text-sm">%</span>
+              <span class="text-2xl sm:text-3xl font-extrabold text-[#1a2e1a]">
+                <span id="overallPercent">0</span><span class="text-lg sm:text-xl">%</span>
               </span>
             </div>
           </div>
           <div>
-            <p class="text-lg font-bold text-black">ทำได้ <span id="daysCompleted">0</span> วัน</p>
-            <p class="text-sm text-stone-500 font-medium">จาก 31 วัน</p>
+            <p class="text-2xl sm:text-3xl font-extrabold text-[#1a2e1a]">ทำได้ <span id="daysCompleted" class="text-[#2d7a3a]">0</span> วัน</p>
+            <p class="text-lg font-bold text-stone-500 mt-0.5">จากทั้งหมด 31 วัน</p>
           </div>
         </div>
       </div>
 
       <!-- Card 2: กราฟรายเดือน -->
-      <div class="bg-white rounded-2xl p-5 shadow-xs border border-stone-200/80 mb-3.5">
-        <div class="flex items-center justify-between mb-3">
-          <h3 class="text-base font-bold text-black">กราฟรายเดือน</h3>
-          <span class="text-xs text-stone-500 font-medium flex items-center gap-1">
-            <span class="iconify text-sm" data-icon="mdi:calendar-outline"></span> สิงหาคม 2569
+      <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-stone-200 mb-5">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-2xl font-extrabold text-[#1a2e1a]">กราฟรายเดือน</h3>
+          <span class="text-base font-bold text-[#2d7a3a] flex items-center gap-1.5 bg-emerald-50 px-3 py-1 rounded-xl">
+            <span class="iconify text-xl" data-icon="mdi:calendar-outline"></span> สิงหาคม 2569
           </span>
         </div>
-        <div class="flex gap-1.5">
-          <div class="flex flex-col justify-between text-[10px] text-stone-400 font-medium pr-1 py-0.5" style="height: 120px;">
+        <div class="flex gap-2">
+          <div class="flex flex-col justify-between text-xs sm:text-sm text-stone-500 font-bold pr-1 py-0.5" style="height: 130px;">
             <span>100%</span><span>75%</span><span>50%</span><span>25%</span><span>0%</span>
           </div>
-          <div id="dailyChartContainer" class="flex-1 flex items-end gap-[2px]" style="height: 120px;"></div>
+          <div id="dailyChartContainer" class="flex-1 flex items-end gap-[2px]" style="height: 130px;"></div>
         </div>
-        <div class="flex justify-between ml-8 mt-1">
-          <span class="text-[10px] text-stone-400">1</span><span class="text-[10px] text-stone-400">5</span>
-          <span class="text-[10px] text-stone-400">10</span><span class="text-[10px] text-stone-400">15</span>
-          <span class="text-[10px] text-stone-400">20</span><span class="text-[10px] text-stone-400">25</span>
-          <span class="text-[10px] text-stone-400">30</span>
+        <div class="flex justify-between ml-10 mt-2 text-xs sm:text-sm font-bold text-stone-500">
+          <span>วันที่ 1</span><span>5</span><span>10</span><span>15</span><span>20</span><span>25</span><span>30</span>
         </div>
-        <div class="flex items-center gap-1.5 mt-2.5 px-3 py-2 bg-emerald-50 rounded-xl">
-          <span class="iconify text-base text-[#2d7a3a]" data-icon="mdi:chart-line"></span>
-          <span class="text-xs font-semibold text-[#2d7a3a]" id="avgMonthlyText"></span>
+        <div class="flex items-center gap-2 mt-4 px-4 py-3 bg-emerald-50 rounded-2xl">
+          <span class="iconify text-2xl text-[#2d7a3a]" data-icon="mdi:chart-line"></span>
+          <span class="text-base sm:text-lg font-bold text-[#2d7a3a]" id="avgMonthlyText"></span>
         </div>
       </div>
 
       <!-- Card 3: กราฟรายปี -->
-      <div class="bg-white rounded-2xl p-5 shadow-xs border border-stone-200/80 mb-3.5">
-        <div class="flex items-center justify-between mb-3">
-          <h3 class="text-base font-bold text-black">กราฟรายปี</h3>
-          <span class="text-xs text-stone-500 font-medium flex items-center gap-1">
-            <span class="iconify text-sm" data-icon="mdi:calendar-outline"></span> 2569
+      <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-stone-200 mb-5">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-2xl font-extrabold text-[#1a2e1a]">กราฟรายปี</h3>
+          <span class="text-base font-bold text-[#2d7a3a] flex items-center gap-1.5 bg-emerald-50 px-3 py-1 rounded-xl">
+            <span class="iconify text-xl" data-icon="mdi:calendar-outline"></span> ปี 2569
           </span>
         </div>
-        <div class="flex gap-1.5">
-          <div class="flex flex-col justify-between text-[10px] text-stone-400 font-medium pr-1 py-0.5" style="height: 120px;">
+        <div class="flex gap-2">
+          <div class="flex flex-col justify-between text-xs sm:text-sm text-stone-500 font-bold pr-1 py-0.5" style="height: 130px;">
             <span>100%</span><span>75%</span><span>50%</span><span>25%</span><span>0%</span>
           </div>
-          <div id="monthlyChartContainer" class="flex-1 flex items-end gap-1" style="height: 120px;"></div>
+          <div id="monthlyChartContainer" class="flex-1 flex items-end gap-1" style="height: 130px;"></div>
         </div>
-        <div id="monthlyLabelsContainer" class="flex ml-8 mt-1"></div>
-        <div class="flex items-center gap-1.5 mt-2.5 px-3 py-2 bg-amber-50 rounded-xl">
-          <span class="text-sm">⭐</span>
-          <span class="text-xs font-semibold text-amber-700">เดือนที่ดีที่สุด: กรกฎาคม (86%)</span>
+        <div id="monthlyLabelsContainer" class="flex ml-10 mt-2"></div>
+        <div class="flex items-center gap-2 mt-4 px-4 py-3 bg-amber-50 rounded-2xl">
+          <span class="text-2xl">⭐</span>
+          <span class="text-base sm:text-lg font-bold text-amber-800">เดือนที่ดีที่สุด: กรกฎาคม (86%)</span>
         </div>
       </div>
 
       <!-- Card 4: สถิติของคุณ -->
-      <div class="bg-white rounded-2xl p-5 shadow-xs border border-stone-200/80 mb-3.5">
-        <h3 class="text-base font-bold text-black mb-3">สถิติของคุณ</h3>
+      <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-stone-200 mb-5">
+        <h3 class="text-2xl font-extrabold text-[#1a2e1a] mb-4">สถิติของท่าน</h3>
         <div class="grid grid-cols-3 gap-3">
-          <div class="flex flex-col items-center gap-1 py-2">
-            <span class="iconify text-2xl text-[#2d7a3a]" data-icon="mdi:check-circle-outline"></span>
-            <span class="text-2xl font-extrabold text-[#2d7a3a]">24</span>
-            <span class="text-xs text-stone-500 font-medium text-center leading-tight">วันที่ทำครบ</span>
+          <div class="flex flex-col items-center gap-1 py-3 px-2 bg-emerald-50 rounded-2xl">
+            <span class="iconify text-3xl text-[#2d7a3a]" data-icon="mdi:check-circle-outline"></span>
+            <span class="text-3xl font-extrabold text-[#2d7a3a]">24</span>
+            <span class="text-base font-bold text-stone-700 text-center leading-tight">ทำครบ</span>
           </div>
-          <div class="flex flex-col items-center gap-1 py-2">
-            <span class="iconify text-2xl text-amber-500" data-icon="mdi:circle-half-full"></span>
-            <span class="text-2xl font-extrabold text-amber-500">4</span>
-            <span class="text-xs text-stone-500 font-medium text-center leading-tight">วันที่ทำบางส่วน</span>
+          <div class="flex flex-col items-center gap-1 py-3 px-2 bg-amber-50 rounded-2xl">
+            <span class="iconify text-3xl text-amber-500" data-icon="mdi:circle-half-full"></span>
+            <span class="text-3xl font-extrabold text-amber-600">4</span>
+            <span class="text-base font-bold text-stone-700 text-center leading-tight">ทำบางส่วน</span>
           </div>
-          <div class="flex flex-col items-center gap-1 py-2">
-            <span class="iconify text-2xl text-stone-400" data-icon="mdi:close-circle-outline"></span>
-            <span class="text-2xl font-extrabold text-stone-400">3</span>
-            <span class="text-xs text-stone-500 font-medium text-center leading-tight">วันที่ไม่ได้ทำ</span>
+          <div class="flex flex-col items-center gap-1 py-3 px-2 bg-stone-100 rounded-2xl">
+            <span class="iconify text-3xl text-stone-500" data-icon="mdi:close-circle-outline"></span>
+            <span class="text-3xl font-extrabold text-stone-600">3</span>
+            <span class="text-base font-bold text-stone-700 text-center leading-tight">ไม่ได้ทำ</span>
           </div>
         </div>
       </div>
 
       <!-- Card 5: สถิติการทำต่อเนื่อง -->
-      <div class="bg-white rounded-2xl p-5 shadow-xs border border-stone-200/80">
-        <h3 class="text-base font-bold text-black mb-3">สถิติการทำต่อเนื่อง</h3>
+      <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-stone-200">
+        <h3 class="text-2xl font-extrabold text-[#1a2e1a] mb-4">สถิติการทำต่อเนื่อง</h3>
         <div class="grid grid-cols-2 gap-4">
-          <div class="text-center py-2">
-            <p class="text-xs text-stone-500 font-medium mb-1">ทำต่อเนื่องตอนนี้</p>
-            <p class="text-3xl font-extrabold text-[#2d7a3a]">7</p>
-            <p class="text-xs text-stone-500 font-medium">วัน</p>
+          <div class="text-center py-4 bg-emerald-50/70 rounded-2xl">
+            <p class="text-base sm:text-lg text-stone-700 font-bold mb-1">ทำต่อเนื่องตอนนี้</p>
+            <p class="text-4xl sm:text-5xl font-extrabold text-[#2d7a3a]">7</p>
+            <p class="text-base text-stone-600 font-bold mt-0.5">วัน</p>
           </div>
-          <div class="text-center py-2">
-            <p class="text-xs text-stone-500 font-medium mb-1">ทำต่อเนื่องสูงสุด</p>
-            <p class="text-3xl font-extrabold text-[#2d7a3a]">24</p>
-            <p class="text-xs text-stone-500 font-medium">วัน</p>
+          <div class="text-center py-4 bg-emerald-50/70 rounded-2xl">
+            <p class="text-base sm:text-lg text-stone-700 font-bold mb-1">ทำต่อเนื่องสูงสุด</p>
+            <p class="text-4xl sm:text-5xl font-extrabold text-[#2d7a3a]">24</p>
+            <p class="text-base text-stone-600 font-bold mt-0.5">วัน</p>
           </div>
         </div>
       </div>
@@ -140,66 +137,64 @@
       80, 90, 75, 100, 70, 85, 60, 95, 80, 70,
       100, 75, 85, 90, 65, 100, 80, 70, 95, 85,
     ];
+
     const MONTHLY_DATA = [
-      { month: "ม.ค.", value: 72 }, { month: "ก.พ.", value: 68 }, { month: "มี.ค.", value: 75 },
-      { month: "เม.ย.", value: 80 }, { month: "พ.ค.", value: 70 }, { month: "มิ.ย.", value: 78 },
-      { month: "ก.ค.", value: 86 }, { month: "ส.ค.", value: 78 }, { month: "ก.ย.", value: 74 },
-      { month: "ต.ค.", value: 72 }, { month: "พ.ย.", value: 76 }, { month: "ธ.ค.", value: 70 },
+      { month: "ม.ค.", value: 72 }, { month: "ก.พ.", value: 68 },
+      { month: "มี.ค.", value: 75 }, { month: "เม.ย.", value: 80 },
+      { month: "พ.ค.", value: 70 }, { month: "มิ.ย.", value: 78 },
+      { month: "ก.ค.", value: 86 }, { month: "ส.ค.", value: 78 },
+      { month: "ก.ย.", value: 74 }, { month: "ต.ค.", value: 72 },
+      { month: "พ.ย.", value: 76 }, { month: "ธ.ค.", value: 70 },
     ];
 
-    function renderCharts() {
-      // 1. Overall Circle
+    function init() {
+      // 1. ความสำเร็จโดยรวม
       const overallPercent = 78;
+      const daysCompleted = 24;
       document.getElementById("overallPercent").innerText = overallPercent;
-      document.getElementById("daysCompleted").innerText = 24;
-      setTimeout(() => {
-        const offset = 238.7 * (1 - overallPercent / 100);
-        document.getElementById("overallCircle").style.strokeDashoffset = offset;
-      }, 100);
+      document.getElementById("daysCompleted").innerText = daysCompleted;
 
-      // 2. Daily Chart
-      const maxDaily = Math.max(...DAILY_DATA);
-      const avgMonthly = Math.round(DAILY_DATA.reduce((a, b) => a + b, 0) / DAILY_DATA.length);
-      document.getElementById("avgMonthlyText").innerText = `ค่าเฉลี่ยความสำเร็จของเดือนนี้: ${avgMonthly}%`;
-      
+      const circle = document.getElementById("overallCircle");
+      const radius = 38;
+      const circumference = 2 * Math.PI * radius;
+      const offset = circumference - (overallPercent / 100) * circumference;
+      circle.style.strokeDashoffset = offset;
+
+      // 2. กราฟรายเดือน
       const dailyContainer = document.getElementById("dailyChartContainer");
+      dailyContainer.innerHTML = "";
       DAILY_DATA.forEach(val => {
-        const bg = val === maxDaily ? "#1a5c28" : "#2d7a3a";
-        const op = val >= 80 ? 1 : 0.7;
-        dailyContainer.innerHTML += `
-          <div class="flex-1 flex flex-col justify-end h-full">
-            <div class="w-full rounded-t-sm transition-all duration-300" style="height: 0%; background: ${bg}; opacity: ${op};"></div>
-          </div>
-        `;
+        const bar = document.createElement("div");
+        bar.className = "flex-1 rounded-t-sm transition-all duration-500";
+        bar.style.height = `${val}%`;
+        bar.style.backgroundColor = val === 100 ? "#2d7a3a" : val >= 80 ? "#529e5e" : "#86c891";
+        dailyContainer.appendChild(bar);
       });
 
-      // 3. Monthly Chart
-      const maxMonthly = Math.max(...MONTHLY_DATA.map(m => m.value));
+      const avg = Math.round(DAILY_DATA.reduce((a, b) => a + b, 0) / DAILY_DATA.length);
+      document.getElementById("avgMonthlyText").innerText = `เฉลี่ยทั้งเดือน: ${avg}% (ทำได้ดีมาก)`;
+
+      // 3. กราฟรายปี
       const monthlyContainer = document.getElementById("monthlyChartContainer");
-      const monthlyLabelsContainer = document.getElementById("monthlyLabelsContainer");
+      const monthlyLabels = document.getElementById("monthlyLabelsContainer");
+      monthlyContainer.innerHTML = "";
+      monthlyLabels.innerHTML = "";
 
-      MONTHLY_DATA.forEach(m => {
-        const bg = m.value === maxMonthly ? "#1a5c28" : "#2d7a3a";
-        const op = m.value >= 75 ? 1 : 0.7;
-        monthlyContainer.innerHTML += `
-          <div class="flex-1 flex flex-col items-center justify-end h-full">
-            <div class="w-full rounded-t-sm transition-all duration-300" style="height: 0%; background: ${bg}; opacity: ${op};"></div>
-          </div>
-        `;
-        monthlyLabelsContainer.innerHTML += `<div class="flex-1 text-center text-[9px] text-stone-400">${m.month}</div>`;
+      MONTHLY_DATA.forEach(item => {
+        const bar = document.createElement("div");
+        bar.className = "flex-1 rounded-t-md transition-all duration-500";
+        bar.style.height = `${item.value}%`;
+        bar.style.backgroundColor = item.month === "ก.ค." ? "#2d7a3a" : "#86c891";
+        monthlyContainer.appendChild(bar);
+
+        const label = document.createElement("span");
+        label.className = "flex-1 text-center text-xs sm:text-sm font-bold text-stone-600";
+        label.innerText = item.month;
+        monthlyLabels.appendChild(label);
       });
-
-      // Animate Bars
-      setTimeout(() => {
-        const dailyBars = dailyContainer.querySelectorAll("div > div");
-        dailyBars.forEach((bar, idx) => { bar.style.height = `${DAILY_DATA[idx]}%`; });
-
-        const monthlyBars = monthlyContainer.querySelectorAll("div > div");
-        monthlyBars.forEach((bar, idx) => { bar.style.height = `${MONTHLY_DATA[idx].value}%`; });
-      }, 150);
     }
 
-    renderCharts();
+    init();
   </script>
 </body>
 </html>

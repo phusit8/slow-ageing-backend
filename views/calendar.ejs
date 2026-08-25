@@ -7,100 +7,100 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap');
     body { font-family: 'Prompt', sans-serif; }
   </style>
 </head>
-<body class="bg-white">
+<body class="bg-[#f5f7f5]">
   <div class="flex flex-col min-h-screen w-full">
-    <div class="w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto flex-1 flex flex-col px-5 pt-5 pb-6">
+    <div class="w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto flex-1 flex flex-col px-5 pt-6 pb-12">
 
       <!-- Header -->
-      <div class="relative flex items-center justify-center mb-4">
-        <a href="/home" class="absolute left-0 p-1 -ml-1 text-black cursor-pointer hover:bg-stone-100 rounded-xl transition-colors">
-          <span class="iconify text-2xl" data-icon="mdi:arrow-left"></span>
+      <div class="relative flex items-center justify-center mb-6">
+        <a href="/home" class="absolute left-0 p-2 -ml-2 text-black cursor-pointer hover:bg-stone-200/60 rounded-2xl transition-colors">
+          <span class="iconify text-3xl sm:text-4xl" data-icon="mdi:arrow-left"></span>
         </a>
-        <h1 class="text-xl font-bold text-black">ความก้าวหน้ารายเดือน</h1>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-[#1a2e1a]">ปฏิทินรายเดือน</h1>
       </div>
 
       <!-- เดือน/ปี Navigator -->
-      <div class="flex items-center justify-center gap-4 mb-4">
-        <button id="prevBtn" class="p-1 cursor-pointer text-stone-600 hover:text-black">
-          <span class="iconify text-2xl" data-icon="mdi:chevron-left"></span>
+      <div class="flex items-center justify-center gap-4 mb-5 bg-white p-3 rounded-2xl border border-stone-200 shadow-sm">
+        <button id="prevBtn" class="p-2 cursor-pointer text-stone-600 hover:text-black rounded-xl hover:bg-stone-100">
+          <span class="iconify text-3xl sm:text-4xl" data-icon="mdi:chevron-left"></span>
         </button>
-        <span id="monthYearText" class="text-base font-bold text-black min-w-[140px] text-center">
+        <span id="monthYearText" class="text-xl sm:text-2xl font-extrabold text-[#1a2e1a] min-w-[180px] text-center">
           <!-- Inject by JS -->
         </span>
-        <button id="nextBtn" class="p-1 cursor-pointer text-stone-600 hover:text-black">
-          <span class="iconify text-2xl" data-icon="mdi:chevron-right"></span>
+        <button id="nextBtn" class="p-2 cursor-pointer text-stone-600 hover:text-black rounded-xl hover:bg-stone-100">
+          <span class="iconify text-3xl sm:text-4xl" data-icon="mdi:chevron-right"></span>
         </button>
       </div>
 
       <!-- การ์ดความสม่ำเสมอ -->
-      <div class="border border-stone-200 rounded-2xl p-4 mb-4">
-        <p class="text-sm font-semibold text-stone-600 mb-1">ความสม่ำเสมอของเดือนนี้</p>
-        <p class="text-3xl font-extrabold text-black mb-2"><span id="consistencyText">0</span>%</p>
-        <div class="w-full h-3 rounded-full bg-stone-100 overflow-hidden mb-1.5">
+      <div class="bg-white border border-stone-200 rounded-3xl p-6 shadow-sm mb-5">
+        <p class="text-lg sm:text-xl font-bold text-stone-700 mb-1">ความสม่ำเสมอของเดือนนี้</p>
+        <p class="text-4xl sm:text-5xl font-extrabold text-[#1a2e1a] mb-3"><span id="consistencyText" class="text-[#2d7a3a]">0</span>%</p>
+        <div class="w-full h-4 rounded-full bg-stone-100 overflow-hidden mb-2">
           <div id="consistencyBar" class="h-full rounded-full transition-all duration-500" style="width: 0%; background: #2d7a3a;"></div>
         </div>
-        <p id="consistencyDesc" class="text-xs text-stone-500 font-medium">
+        <p id="consistencyDesc" class="text-base sm:text-lg text-stone-600 font-bold">
           ทำได้ 0 วัน จาก 0 วัน
         </p>
       </div>
 
       <!-- ปฏิทิน -->
-      <div class="mb-4">
+      <div class="bg-white border border-stone-200 rounded-3xl p-5 sm:p-6 shadow-sm mb-5">
         <!-- วันในสัปดาห์ -->
-        <div class="grid grid-cols-7 mb-2">
-          <div class="text-center text-sm font-semibold text-stone-500 py-1">อา</div>
-          <div class="text-center text-sm font-semibold text-stone-500 py-1">จ</div>
-          <div class="text-center text-sm font-semibold text-stone-500 py-1">อ</div>
-          <div class="text-center text-sm font-semibold text-stone-500 py-1">พ</div>
-          <div class="text-center text-sm font-semibold text-stone-500 py-1">พฤ</div>
-          <div class="text-center text-sm font-semibold text-stone-500 py-1">ศ</div>
-          <div class="text-center text-sm font-semibold text-stone-500 py-1">ส</div>
+        <div class="grid grid-cols-7 mb-3">
+          <div class="text-center text-lg sm:text-xl font-extrabold text-stone-600 py-1">อา</div>
+          <div class="text-center text-lg sm:text-xl font-extrabold text-stone-600 py-1">จ</div>
+          <div class="text-center text-lg sm:text-xl font-extrabold text-stone-600 py-1">อ</div>
+          <div class="text-center text-lg sm:text-xl font-extrabold text-stone-600 py-1">พ</div>
+          <div class="text-center text-lg sm:text-xl font-extrabold text-stone-600 py-1">พฤ</div>
+          <div class="text-center text-lg sm:text-xl font-extrabold text-stone-600 py-1">ศ</div>
+          <div class="text-center text-lg sm:text-xl font-extrabold text-stone-600 py-1">ส</div>
         </div>
 
         <!-- ตารางวันที่ -->
-        <div id="calendarGrid" class="grid grid-cols-7 gap-y-1.5">
+        <div id="calendarGrid" class="grid grid-cols-7 gap-y-2.5">
           <!-- Inject by JS -->
         </div>
       </div>
 
       <!-- Legend -->
-      <div class="flex items-center justify-center gap-5 mb-5">
-        <div class="flex items-center gap-1.5">
-          <div class="w-3 h-3 rounded-full" style="background: #2d7a3a;"></div>
-          <span class="text-xs text-stone-600 font-medium">ทำครบ</span>
+      <div class="flex items-center justify-center gap-6 mb-6 bg-white p-4 rounded-2xl border border-stone-200 shadow-sm">
+        <div class="flex items-center gap-2">
+          <div class="w-4 h-4 rounded-full" style="background: #2d7a3a;"></div>
+          <span class="text-base sm:text-lg text-stone-700 font-bold">ทำครบ</span>
         </div>
-        <div class="flex items-center gap-1.5">
-          <div class="w-3 h-3 rounded-full" style="background: #f59e0b;"></div>
-          <span class="text-xs text-stone-600 font-medium">ทำบางส่วน</span>
+        <div class="flex items-center gap-2">
+          <div class="w-4 h-4 rounded-full" style="background: #f59e0b;"></div>
+          <span class="text-base sm:text-lg text-stone-700 font-bold">ทำบางส่วน</span>
         </div>
-        <div class="flex items-center gap-1.5">
-          <div class="w-3 h-3 rounded-full" style="background: #9ca3af;"></div>
-          <span class="text-xs text-stone-600 font-medium">ไม่ได้ทำ</span>
+        <div class="flex items-center gap-2">
+          <div class="w-4 h-4 rounded-full" style="background: #9ca3af;"></div>
+          <span class="text-base sm:text-lg text-stone-700 font-bold">ไม่ได้ทำ</span>
         </div>
       </div>
 
       <!-- สถิติเดือนนี้ -->
-      <div class="border border-stone-200 rounded-2xl p-4">
-        <h4 class="text-base font-bold text-black mb-3">สถิติเดือนนี้</h4>
-        <div class="grid grid-cols-3 divide-x divide-stone-200">
-          <div class="flex flex-col items-center">
-            <span id="statDone" class="text-2xl font-extrabold text-[#2d7a3a]">0</span>
-            <span class="text-xs text-stone-500 font-medium">วัน</span>
-            <span class="text-xs text-stone-400 mt-0.5">ทำครบ</span>
+      <div class="bg-white border border-stone-200 rounded-3xl p-6 shadow-sm">
+        <h4 class="text-2xl font-extrabold text-[#1a2e1a] mb-4">สถิติเดือนนี้</h4>
+        <div class="grid grid-cols-3 divide-x-2 divide-stone-200">
+          <div class="flex flex-col items-center px-1">
+            <span id="statDone" class="text-3xl sm:text-4xl font-extrabold text-[#2d7a3a]">0</span>
+            <span class="text-base text-stone-600 font-bold">วัน</span>
+            <span class="text-base font-bold text-[#2d7a3a] mt-0.5">ทำครบ</span>
           </div>
-          <div class="flex flex-col items-center">
-            <span id="statPartial" class="text-2xl font-extrabold text-amber-500">0</span>
-            <span class="text-xs text-stone-500 font-medium">วัน</span>
-            <span class="text-xs text-stone-400 mt-0.5">ทำบางส่วน</span>
+          <div class="flex flex-col items-center px-1">
+            <span id="statPartial" class="text-3xl sm:text-4xl font-extrabold text-amber-500">0</span>
+            <span class="text-base text-stone-600 font-bold">วัน</span>
+            <span class="text-base font-bold text-amber-600 mt-0.5">ทำบางส่วน</span>
           </div>
-          <div class="flex flex-col items-center">
-            <span id="statMissed" class="text-2xl font-extrabold text-stone-400">0</span>
-            <span class="text-xs text-stone-500 font-medium">วัน</span>
-            <span class="text-xs text-stone-400 mt-0.5">ไม่ได้ทำ</span>
+          <div class="flex flex-col items-center px-1">
+            <span id="statMissed" class="text-3xl sm:text-4xl font-extrabold text-stone-500">0</span>
+            <span class="text-base text-stone-600 font-bold">วัน</span>
+            <span class="text-base font-bold text-stone-500 mt-0.5">ไม่ได้ทำ</span>
           </div>
         </div>
       </div>
@@ -160,22 +160,22 @@
       calendarGrid.innerHTML = "";
       gridCells.forEach(cell => {
         let bgColor = "transparent";
-        let textColor = cell.inMonth ? "#1a2e1a" : "#c5c5c5";
-        let fontWeight = "500";
+        let textColor = cell.inMonth ? "#1a2e1a" : "#d0d0d0";
+        let fontWeight = "600";
 
         if (cell.inMonth) {
           if (cell.status === "done") {
-            bgColor = "#2d7a3a"; textColor = "#ffffff"; fontWeight = "700";
+            bgColor = "#2d7a3a"; textColor = "#ffffff"; fontWeight = "800";
           } else if (cell.status === "partial") {
-            bgColor = "#f59e0b"; textColor = "#ffffff"; fontWeight = "700";
+            bgColor = "#f59e0b"; textColor = "#ffffff"; fontWeight = "800";
           } else if (cell.status === "missed") {
-            bgColor = "#9ca3af"; textColor = "#ffffff"; fontWeight = "700";
+            bgColor = "#9ca3af"; textColor = "#ffffff"; fontWeight = "800";
           }
         }
 
         calendarGrid.innerHTML += `
-          <div class="flex items-center justify-center py-0.5">
-            <div class="w-9 h-9 rounded-full flex items-center justify-center text-sm" style="background: ${bgColor}; color: ${textColor}; font-weight: ${fontWeight};">
+          <div class="flex items-center justify-center py-1">
+            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-lg sm:text-xl shadow-xs" style="background: ${bgColor}; color: ${textColor}; font-weight: ${fontWeight};">
               ${cell.day}
             </div>
           </div>
@@ -190,7 +190,7 @@
       const consistencyPercent = Math.round(((doneCount + partialCount * 0.5) / totalDays) * 100);
 
       document.getElementById("consistencyText").innerText = consistencyPercent;
-      document.getElementById("consistencyDesc").innerText = `ทำได้ ${doneCount} วัน จาก ${totalDays} วัน`;
+      document.getElementById("consistencyDesc").innerText = `ทำได้ ${doneCount} วัน จากทั้งหมด ${totalDays} วัน`;
       document.getElementById("statDone").innerText = doneCount;
       document.getElementById("statPartial").innerText = partialCount;
       document.getElementById("statMissed").innerText = missedCount || (totalDays - doneCount - partialCount);

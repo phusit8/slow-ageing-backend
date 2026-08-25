@@ -64,8 +64,12 @@ app.get('/calendar', (req, res) => {
     res.render('calendar');
 });
 
-// Start Server
-app.listen(PORT, () => {
-    console.log(`🚀 Server is running on http://localhost:${PORT}`);
-    console.log(`👉 หน้า Login: http://localhost:${PORT}/`);
-});
+// Start Server (เฉพาะเมื่อไม่ได้รันบน serverless เช่น Vercel)
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+    app.listen(PORT, () => {
+        console.log(`🚀 Server is running on http://localhost:${PORT}`);
+        console.log(`👉 หน้า Login: http://localhost:${PORT}/`);
+    });
+}
+
+module.exports = app;
