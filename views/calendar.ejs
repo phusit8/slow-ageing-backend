@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ปฏิทินรายเดือน - Slow Aging</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+    body { font-family: 'Prompt', sans-serif; }
+  </style>
+</head>
+<body class="bg-white">
+  <div class="flex flex-col min-h-screen w-full">
+    <div class="w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto flex-1 flex flex-col px-5 pt-5 pb-6">
+
+      <!-- Header -->
+      <div class="relative flex items-center justify-center mb-4">
+        <a href="/home" class="absolute left-0 p-1 -ml-1 text-black cursor-pointer hover:bg-stone-100 rounded-xl transition-colors">
+          <span class="iconify text-2xl" data-icon="mdi:arrow-left"></span>
+        </a>
+        <h1 class="text-xl font-bold text-black">ความก้าวหน้ารายเดือน</h1>
+      </div>
+
+      <!-- เดือน/ปี Navigator -->
+      <div class="flex items-center justify-center gap-4 mb-4">
+        <button id="prevBtn" class="p-1 cursor-pointer text-stone-600 hover:text-black">
+          <span class="iconify text-2xl" data-icon="mdi:chevron-left"></span>
+        </button>
+        <span id="monthYearText" class="text-base font-bold text-black min-w-[140px] text-center">
+          <!-- Inject by JS -->
+        </span>
+        <button id="nextBtn" class="p-1 cursor-pointer text-stone-600 hover:text-black">
+          <span class="iconify text-2xl" data-icon="mdi:chevron-right"></span>
+        </button>
+      </div>
+
+      <!-- การ์ดความสม่ำเสมอ -->
+      <div class="border border-stone-200 rounded-2xl p-4 mb-4">
+        <p class="text-sm font-semibold text-stone-600 mb-1">ความสม่ำเสมอของเดือนนี้</p>
+        <p class="text-3xl font-extrabold text-black mb-2"><span id="consistencyText">0</span>%</p>
+        <div class="w-full h-3 rounded-full bg-stone-100 overflow-hidden mb-1.5">
+          <div id="consistencyBar" class="h-full rounded-full transition-all duration-500" style="width: 0%; background: #2d7a3a;"></div>
+        </div>
+        <p id="consistencyDesc" class="text-xs text-stone-500 font-medium">
+          ทำได้ 0 วัน จาก 0 วัน
+        </p>
+      </div>
+
+      <!-- ปฏิทิน -->
+      <div class="mb-4">
+        <!-- วันในสัปดาห์ -->
+        <div class="grid grid-cols-7 mb-2">
+          <div class="text-center text-sm font-semibold text-stone-500 py-1">อา</div>
+          <div class="text-center text-sm font-semibold text-stone-500 py-1">จ</div>
+          <div class="text-center text-sm font-semibold text-stone-500 py-1">อ</div>
+          <div class="text-center text-sm font-semibold text-stone-500 py-1">พ</div>
+          <div class="text-center text-sm font-semibold text-stone-500 py-1">พฤ</div>
+          <div class="text-center text-sm font-semibold text-stone-500 py-1">ศ</div>
+          <div class="text-center text-sm font-semibold text-stone-500 py-1">ส</div>
+        </div>
+
+        <!-- ตารางวันที่ -->
+        <div id="calendarGrid" class="grid grid-cols-7 gap-y-1.5">
+          <!-- Inject by JS -->
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div class="flex items-center justify-center gap-5 mb-5">
+        <div class="flex items-center gap-1.5">
+          <div class="w-3 h-3 rounded-full" style="background: #2d7a3a;"></div>
+          <span class="text-xs text-stone-600 font-medium">ทำครบ</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <div class="w-3 h-3 rounded-full" style="background: #f59e0b;"></div>
+          <span class="text-xs text-stone-600 font-medium">ทำบางส่วน</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <div class="w-3 h-3 rounded-full" style="background: #9ca3af;"></div>
+          <span class="text-xs text-stone-600 font-medium">ไม่ได้ทำ</span>
+        </div>
+      </div>
+
+      <!-- สถิติเดือนนี้ -->
+      <div class="border border-stone-200 rounded-2xl p-4">
+        <h4 class="text-base font-bold text-black mb-3">สถิติเดือนนี้</h4>
+        <div class="grid grid-cols-3 divide-x divide-stone-200">
+          <div class="flex flex-col items-center">
+            <span id="statDone" class="text-2xl font-extrabold text-[#2d7a3a]">0</span>
+            <span class="text-xs text-stone-500 font-medium">วัน</span>
+            <span class="text-xs text-stone-400 mt-0.5">ทำครบ</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <span id="statPartial" class="text-2xl font-extrabold text-amber-500">0</span>
+            <span class="text-xs text-stone-500 font-medium">วัน</span>
+            <span class="text-xs text-stone-400 mt-0.5">ทำบางส่วน</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <span id="statMissed" class="text-2xl font-extrabold text-stone-400">0</span>
+            <span class="text-xs text-stone-500 font-medium">วัน</span>
+            <span class="text-xs text-stone-400 mt-0.5">ไม่ได้ทำ</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const MONTH_NAMES = [
+      "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+      "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม",
+    ];
+
+    let currentMonth = 7; // 7 = สิงหาคม
+    let currentYear = 2569;
+
+    // Mock data
+    const calendarData = [
+      { day: 1, status: null }, { day: 2, status: "done" }, { day: 3, status: null },
+      { day: 4, status: null }, { day: 5, status: null }, { day: 6, status: "done" },
+      { day: 7, status: "done" }, { day: 8, status: "done" }, { day: 9, status: "done" },
+      { day: 10, status: null }, { day: 11, status: null }, { day: 12, status: null },
+      { day: 13, status: null }, { day: 14, status: null }, { day: 15, status: "done" },
+      { day: 16, status: "done" }, { day: 17, status: null }, { day: 18, status: null },
+      { day: 19, status: null }, { day: 20, status: "done" }, { day: 21, status: "done" },
+      { day: 22, status: null }, { day: 23, status: "partial" }, { day: 24, status: null },
+      { day: 25, status: null }, { day: 26, status: null }, { day: 27, status: "done" },
+      { day: 28, status: "partial" }, { day: 29, status: "done" }, { day: 30, status: "partial" },
+      { day: 31, status: null },
+    ];
+
+    function renderCalendar() {
+      // อัปเดต Header
+      document.getElementById("monthYearText").innerText = `${MONTH_NAMES[currentMonth]} ${currentYear}`;
+
+      const realYear = currentYear - 543;
+      const firstDayOfWeek = new Date(realYear, currentMonth, 1).getDay();
+      const daysInPrevMonth = new Date(realYear, currentMonth, 0).getDate();
+
+      // สร้าง Grid Data
+      const gridCells = [];
+      for (let i = firstDayOfWeek - 1; i >= 0; i--) {
+        gridCells.push({ day: daysInPrevMonth - i, inMonth: false, status: null });
+      }
+      calendarData.forEach((d) => {
+        gridCells.push({ day: d.day, inMonth: true, status: d.status });
+      });
+      const remainingCells = 7 - (gridCells.length % 7);
+      if (remainingCells < 7) {
+        for (let i = 1; i <= remainingCells; i++) {
+          gridCells.push({ day: i, inMonth: false, status: null });
+        }
+      }
+
+      // วาดปฏิทิน
+      const calendarGrid = document.getElementById("calendarGrid");
+      calendarGrid.innerHTML = "";
+      gridCells.forEach(cell => {
+        let bgColor = "transparent";
+        let textColor = cell.inMonth ? "#1a2e1a" : "#c5c5c5";
+        let fontWeight = "500";
+
+        if (cell.inMonth) {
+          if (cell.status === "done") {
+            bgColor = "#2d7a3a"; textColor = "#ffffff"; fontWeight = "700";
+          } else if (cell.status === "partial") {
+            bgColor = "#f59e0b"; textColor = "#ffffff"; fontWeight = "700";
+          } else if (cell.status === "missed") {
+            bgColor = "#9ca3af"; textColor = "#ffffff"; fontWeight = "700";
+          }
+        }
+
+        calendarGrid.innerHTML += `
+          <div class="flex items-center justify-center py-0.5">
+            <div class="w-9 h-9 rounded-full flex items-center justify-center text-sm" style="background: ${bgColor}; color: ${textColor}; font-weight: ${fontWeight};">
+              ${cell.day}
+            </div>
+          </div>
+        `;
+      });
+
+      // อัปเดตสถิติ
+      const doneCount = calendarData.filter((d) => d.status === "done").length;
+      const partialCount = calendarData.filter((d) => d.status === "partial").length;
+      const missedCount = calendarData.filter((d) => d.status === "missed").length;
+      const totalDays = calendarData.length;
+      const consistencyPercent = Math.round(((doneCount + partialCount * 0.5) / totalDays) * 100);
+
+      document.getElementById("consistencyText").innerText = consistencyPercent;
+      document.getElementById("consistencyDesc").innerText = `ทำได้ ${doneCount} วัน จาก ${totalDays} วัน`;
+      document.getElementById("statDone").innerText = doneCount;
+      document.getElementById("statPartial").innerText = partialCount;
+      document.getElementById("statMissed").innerText = missedCount || (totalDays - doneCount - partialCount);
+      
+      setTimeout(() => {
+        document.getElementById("consistencyBar").style.width = `${consistencyPercent}%`;
+      }, 100);
+    }
+
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      if (currentMonth === 0) {
+        currentMonth = 11;
+        currentYear--;
+      } else {
+        currentMonth--;
+      }
+      renderCalendar();
+    });
+
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      if (currentMonth === 11) {
+        currentMonth = 0;
+        currentYear++;
+      } else {
+        currentMonth++;
+      }
+      renderCalendar();
+    });
+
+    renderCalendar();
+  </script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ภารกิจวันนี้ - Slow Aging</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Iconify -->
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Prompt', sans-serif;
+    }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body class="bg-white">
+
+  <!-- =========================================================
+       VIEW 1: หน้าจอภารกิจวันนี้ (รายการ)
+       ========================================================= -->
+  <div id="listView" class="flex flex-col min-h-screen w-full justify-between">
+    <div class="w-full max-w-md md:max-w-2xl lg:max-w-3xl mx-auto flex-1 flex flex-col justify-between px-5 sm:px-8 pt-6 sm:pt-10 pb-8">
+      <div>
+        <!-- Header -->
+        <div class="relative flex items-center justify-center mb-6 sm:mb-8">
+          <a href="/home" class="absolute left-0 p-2 -ml-2 text-black cursor-pointer hover:bg-stone-100 rounded-xl transition-colors">
+            <span class="iconify text-3xl sm:text-4xl" data-icon="mdi:arrow-left"></span>
+          </a>
+          <div class="text-center">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-black">ภารกิจวันนี้</h1>
+            <p id="currentThaiDate" class="text-base sm:text-lg text-stone-800 mt-1">-</p>
+          </div>
+        </div>
+
+        <!-- Task Cards Container -->
+        <div id="taskListContainer" class="space-y-3.5 sm:space-y-4">
+          <!-- Inject by JS -->
+        </div>
+      </div>
+
+      <!-- Bottom Box: แสดงเฉพาะเมื่อมีกิจกรรมค้าง -->
+      <div id="incompleteBox" class="pt-6 sm:pt-8 hidden">
+        <a href="/tasks/incomplete" class="block w-full py-4 sm:py-5 rounded-2xl border border-stone-200 bg-white text-center text-lg sm:text-xl font-bold text-[#d32f2f] hover:bg-red-50/50 active:scale-[0.99] transition-all cursor-pointer shadow-xs">
+          กิจกรรมที่ยังไม่เสร็จ
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       VIEW 2: หน้าจอวิธีทำท่า (รายละเอียด)
+       ========================================================= -->
+  <div id="detailView" class="hidden flex flex-col min-h-screen w-full bg-white justify-between">
+    <div class="w-full max-w-md md:max-w-2xl lg:max-w-3xl mx-auto flex-1 flex flex-col px-5 sm:px-8 pt-6 sm:pt-10 pb-8">
+      <!-- Header -->
+      <div class="flex items-center mb-6 sm:mb-8">
+        <button onclick="closeDetailView()" class="p-2 -ml-2 text-black cursor-pointer hover:bg-stone-100 rounded-xl transition-colors">
+          <span class="iconify text-3xl sm:text-4xl" data-icon="mdi:arrow-left"></span>
+        </button>
+        <h1 id="detailHeaderTitle" class="text-2xl sm:text-3xl md:text-4xl font-bold text-center flex-1 pr-8 sm:pr-10 text-black">
+          วิธีทำท่า
+        </h1>
+      </div>
+
+      <!-- Guide Video / Image Banner -->
+      <div class="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden mb-6 sm:mb-8 bg-stone-100 border border-stone-200 shadow-xs">
+        <img id="detailImage" src="" alt="Thumbnail" class="w-full h-56 sm:h-72 md:h-80 object-cover" />
+        <div class="absolute inset-0 flex items-center justify-center bg-black/20">
+          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/90 flex items-center justify-center text-stone-700 shadow-md">
+            <span class="iconify text-3xl sm:text-5xl ml-1 text-stone-700" data-icon="mdi:play"></span>
+          </div>
+        </div>
+        <!-- Guide Step Labels -->
+        <div id="guideImagesContainer" class="absolute top-3 inset-x-3 flex justify-between gap-1.5 text-xs sm:text-sm text-stone-700 font-medium"></div>
+      </div>
+
+      <!-- Title & Info -->
+      <div class="space-y-1 sm:space-y-2 mb-6 sm:mb-8">
+        <h2 id="detailTitle" class="text-2xl sm:text-3xl md:text-4xl font-bold text-black"></h2>
+        <p id="detailReps" class="text-xl sm:text-2xl md:text-3xl font-bold text-black"></p>
+        <p id="detailDuration" class="text-base sm:text-lg text-stone-600"></p>
+      </div>
+
+      <!-- วิธีทำ -->
+      <div class="space-y-3 mb-6 sm:mb-8">
+        <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-black">วิธีทำ</h3>
+        <div id="detailSteps" class="space-y-2 text-base sm:text-lg md:text-xl text-stone-800 leading-relaxed font-normal"></div>
+      </div>
+
+      <!-- ข้อควรระวัง -->
+      <p id="detailCaution" class="text-sm sm:text-base md:text-lg text-stone-600 mb-8 leading-relaxed"></p>
+
+      <!-- ปุ่มทำเสร็จแล้ว -->
+      <div class="mt-auto pt-2">
+        <button id="toggleCompleteBtn" class="w-full flex items-center justify-center gap-2 py-4 sm:py-5 rounded-2xl font-bold text-white text-xl sm:text-2xl cursor-pointer active:scale-[0.98] transition-transform shadow-md" style="background: #2d7a3a;">
+          <span class="iconify text-2xl sm:text-3xl" data-icon="mdi:check"></span>
+          <span id="toggleCompleteBtnText">ทำเสร็จแล้ว</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ข้อมูลเริ่มต้น (Default Tasks)
+    const defaultTasks = [
+      {
+        id: 1, title: "บริหารคอ", reps: "10 ครั้ง", duration: "(ประมาณ 1 นาที)", completed: false,
+        image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&auto=format&fit=crop&q=80",
+        steps: ["1. นั่งหรือยืนหลังตรง ผ่อนคลายไหล่", "2. ค่อยๆ หมุนคอไปทางซ้ายช้าๆ", "3. กลับมาที่ท่ากลาง", "4. หมุนคอไปทางขวาช้าๆ", "5. ทำซ้ำจนครบตามจำนวน"],
+        caution: "ควรทำช้าๆไม่กระตุกหากรู้สึกเป็นไปได้ให้หยุดทันที",
+        guideImages: ["1. ก้มคอ", "2. เอียงคอ", "3. หันคอ", "4. เงยหน้า"],
+      },
+      {
+        id: 2, title: "ยกแขนขึ้น-ลง", reps: "15 ครั้ง", duration: "(ประมาณ 1 นาที)", completed: false,
+        image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&auto=format&fit=crop&q=80",
+        steps: ["1. นั่งตัวตรง เท้าทั้งสองข้างวางราบกับพื้น", "2. ค่อยๆ ยกแขนทั้งสองข้างขึ้นเหนือศีรษะช้าๆ", "3. ค้างไว้ 2-3 วินาที พร้อมหายใจเข้า", "4. ผ่อนแขนลงแนบลำตัวช้าๆ พร้อมหายใจออก", "5. ทำซ้ำจนครบตามจำนวน"],
+        caution: "ควรทำช้าๆไม่กระตุกหากรู้สึกเป็นไปได้ให้หยุดทันที",
+        guideImages: ["1. ท่าเตรียม", "2. ยกแขน", "3. ค้างไว้", "4. ผ่อนลง"],
+      },
+      {
+        id: 3, title: "เดินอยู่กับที่", reps: "2 นาที", duration: "(ประมาณ 2 นาที)", completed: false,
+        image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=400&auto=format&fit=crop&q=80",
+        steps: ["1. ยืนตัวตรงอย่างมั่นคง", "2. ก้าวเท้ายกเข่าขึ้นสลับซ้าย-ขวา ช้าๆ", "3. แกว่งแขนตามจังหวะอย่างเป็นธรรมชาติ", "4. เดินต่อเนื่องตามเวลาที่กำหนด"],
+        caution: "ควรทำช้าๆไม่กระตุกหากรู้สึกเป็นไปได้ให้หยุดทันที",
+        guideImages: ["1. ท่ายืน", "2. ยกเข่าซ้าย", "3. สลับขวา", "4. เดินต่อเนื่อง"],
+      },
+      {
+        id: 4, title: "เหยียดขา", reps: "10 ครั้ง", duration: "(ประมาณ 1 นาที)", completed: false,
+        image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&auto=format&fit=crop&q=80",
+        steps: ["1. นั่งบนเก้าอี้ที่มั่นคง หลังตรง", "2. เหยียดขาข้างหนึ่งตรงไปข้างหน้า", "3. เกร็งค้างไว้ 3-5 วินาที", "4. วางเท้าลงแล้วสลับทำอีกข้าง", "5. ทำซ้ำจนครบตามจำนวน"],
+        caution: "ควรทำช้าๆไม่กระตุกหากรู้สึกเป็นไปได้ให้หยุดทันที",
+        guideImages: ["1. นั่งหลังตรง", "2. เหยียดขา", "3. เกร็งค้าง", "4. สลับข้าง"],
+      }
+    ];
+
+    let tasks = [];
+    let currentSelectedTask = null;
+
+    function init() {
+      // ตั้งค่าวันที่ภาษาไทย
+      const now = new Date();
+      const days = ["อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัสบดี","ศุกร์","เสาร์"];
+      const months = ["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"];
+      document.getElementById("currentThaiDate").innerText = `วัน ${days[now.getDay()]} ที่ ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear() + 543}`;
+
+      // โหลด Task จาก LocalStorage
+      const savedTasks = localStorage.getItem("exercise_tasks_data");
+      if (savedTasks) {
+        try { tasks = JSON.parse(savedTasks); } 
+        catch (e) { tasks = [...defaultTasks]; }
+      } else {
+        tasks = [...defaultTasks];
+        localStorage.setItem("exercise_tasks_data", JSON.stringify(tasks));
+      }
+
+      // โหลดเช็ค Incomplete
+      const savedPrev = localStorage.getItem("previous_incomplete_tasks");
+      let hasIncomplete = true;
+      if (savedPrev) {
+        try {
+          const parsed = JSON.parse(savedPrev);
+          hasIncomplete = parsed.some(t => !t.completed);
+        } catch (e) { hasIncomplete = true; }
+      } else {
+        // ทดสอบสร้าง Dummy Incomplete
+        localStorage.setItem("previous_incomplete_tasks", JSON.stringify([
+          { id: 101, title: "เหยียดขา (เมื่อวาน)", completed: false, reps: "10 ครั้ง", duration: "1 นาที", image: defaultTasks[3].image, steps: defaultTasks[3].steps, caution: defaultTasks[3].caution, date: "เมื่อวาน" }
+        ]));
+      }
+
+      if (hasIncomplete) {
+        document.getElementById("incompleteBox").classList.remove("hidden");
+      }
+
+      renderList();
+    }
+
+    function renderList() {
+      const container = document.getElementById("taskListContainer");
+      container.innerHTML = "";
+
+      tasks.forEach(task => {
+        const card = document.createElement("div");
+        card.className = "flex items-center gap-4 sm:gap-5 p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-stone-200 bg-white cursor-pointer active:scale-[0.99] hover:border-emerald-300 transition-all shadow-xs";
+        card.onclick = () => openDetailView(task.id);
+
+        let detailsHtml = "";
+        if (task.id === 1) {
+          detailsHtml = `<p class="text-sm sm:text-base text-stone-600 mt-0.5">${task.duration}</p><p class="text-base sm:text-lg md:text-xl font-bold text-black mt-0.5">${task.reps}</p>`;
+        } else {
+          detailsHtml = `<p class="text-base sm:text-lg md:text-xl font-bold text-black mt-0.5">${task.reps}</p><p class="text-sm sm:text-base text-stone-600 mt-0.5">${task.duration}</p>`;
+        }
+
+        let checkBadgeHtml = "";
+        if (task.completed) {
+          checkBadgeHtml = `<div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white shrink-0 ml-1 shadow-sm" style="background: #2d7a3a;"><span class="iconify text-xl sm:text-2xl" data-icon="mdi:check"></span></div>`;
+        }
+
+        card.innerHTML = `
+          <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white text-base sm:text-lg font-bold shrink-0 shadow-xs" style="background: #2d7a3a;">${task.id}</div>
+          <img src="${task.image}" alt="${task.title}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl sm:rounded-2xl object-cover shrink-0 border border-stone-100" />
+          <div class="flex-1 min-w-0">
+            <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-black leading-tight">${task.title}</h3>
+            ${detailsHtml}
+          </div>
+          ${checkBadgeHtml}
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function openDetailView(taskId) {
+      currentSelectedTask = tasks.find(t => t.id === taskId);
+      const t = currentSelectedTask;
+
+      document.getElementById("detailHeaderTitle").innerText = `วิธีทำท่า ${t.title}`;
+      document.getElementById("detailTitle").innerText = `${t.id}. ${t.title}`;
+      document.getElementById("detailImage").src = t.image;
+      document.getElementById("detailReps").innerText = `ทำ ${t.reps}`;
+      document.getElementById("detailDuration").innerText = t.duration;
+      document.getElementById("detailCaution").innerText = t.caution;
+      
+      const btnText = document.getElementById("toggleCompleteBtnText");
+      btnText.innerText = t.completed ? "ยกเลิกที่ทำเสร็จ" : "ทำเสร็จแล้ว";
+      
+      const stepsContainer = document.getElementById("detailSteps");
+      stepsContainer.innerHTML = t.steps.map(step => `<p>${step}</p>`).join('');
+
+      const guideContainer = document.getElementById("guideImagesContainer");
+      if (t.guideImages) {
+        guideContainer.innerHTML = t.guideImages.map(label => `<span class="bg-white/85 backdrop-blur-xs px-2 py-1 rounded-lg shadow-xs">${label}</span>`).join('');
+      } else {
+        guideContainer.innerHTML = '';
+      }
+
+      document.getElementById("listView").classList.add("hidden");
+      document.getElementById("detailView").classList.remove("hidden");
+    }
+
+    function closeDetailView() {
+      document.getElementById("listView").classList.remove("hidden");
+      document.getElementById("detailView").classList.add("hidden");
+      currentSelectedTask = null;
+    }
+
+    document.getElementById("toggleCompleteBtn").onclick = () => {
+      if (!currentSelectedTask) return;
+      currentSelectedTask.completed = !currentSelectedTask.completed;
+      
+      // Update Array and Save
+      const idx = tasks.findIndex(t => t.id === currentSelectedTask.id);
+      tasks[idx] = currentSelectedTask;
+      localStorage.setItem("exercise_tasks_data", JSON.stringify(tasks));
+      
+      renderList();
+      closeDetailView();
+    };
+
+    // Initialize
+    init();
+  </script>
+</body>
+</html>

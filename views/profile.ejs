@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ข้อมูลส่วนตัว - Slow Aging</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+    body { font-family: 'Prompt', sans-serif; }
+  </style>
+</head>
+<body class="bg-white">
+  <div class="flex flex-col min-h-screen w-full">
+    <div class="w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto flex-1 flex flex-col px-5 pt-5 pb-6">
+      
+      <!-- Header -->
+      <div class="relative flex items-center justify-center mb-5">
+        <a href="/home" class="absolute left-0 p-1 -ml-1 text-black cursor-pointer hover:bg-stone-100 rounded-xl transition-colors">
+          <span class="iconify text-2xl" data-icon="mdi:arrow-left"></span>
+        </a>
+        <h1 class="text-xl font-bold text-black">ข้อมูลส่วนตัว</h1>
+      </div>
+
+      <!-- Avatar + ชื่อ -->
+      <div class="flex flex-col items-center mb-5">
+        <div id="avatarContainer">
+          <div class="w-20 h-20 rounded-full flex items-center justify-center mb-2.5 shadow-md ring-4 ring-emerald-100" style="background: #d4edda;">
+            <span class="text-2xl font-extrabold text-[#2d7a3a]" id="userInitials">--</span>
+          </div>
+        </div>
+        <h2 class="text-lg font-bold text-black text-center" id="userName">กำลังโหลด...</h2>
+        <p class="text-sm text-stone-500 font-medium">ID: <span id="userId">--</span></p>
+      </div>
+
+      <!-- ตารางข้อมูลส่วนตัว -->
+      <div class="space-y-0 border-t border-stone-100" id="infoTable">
+        <!-- JS Inject -->
+      </div>
+
+      <!-- ปุ่มแก้ไขข้อมูล -->
+      <div class="mt-auto pt-6">
+        <a href="/profile/edit" class="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl border-2 border-[#2d7a3a] bg-white text-[#2d7a3a] text-lg font-bold cursor-pointer active:scale-[0.98] transition-transform">
+          <span class="iconify text-xl" data-icon="mdi:pencil-outline"></span>
+          <span>แก้ไขข้อมูลส่วนตัว</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function loadProfile() {
+      let userName = "คุณยายสมศรี ใจดี";
+      let userPicture = "";
+      let userId = "1234567890";
+      let profileData = {
+        village: "ชุมชนบ้านสุขใจ",
+        birthday: "15 พฤษภาคม 2490",
+        age: "77 ปี",
+        gender: "หญิง",
+        height: "158 ซม.",
+        weight: "58 กก.",
+        disease: "ความดันโลหิตสูง",
+        allergy: "ไม่มี",
+      };
+
+      const savedData = localStorage.getItem("user_profile_data");
+      if (savedData) {
+        try {
+          const parsed = JSON.parse(savedData);
+          if (parsed.profileName) userName = parsed.profileName;
+          if (parsed.pictureUrl) userPicture = parsed.pictureUrl;
+          if (parsed.userId) userId = parsed.userId;
+          if (parsed.profileVillage) profileData.village = parsed.profileVillage;
+          if (parsed.birthday) profileData.birthday = parsed.birthday;
+          if (parsed.age) profileData.age = parsed.age;
+          if (parsed.gender) profileData.gender = parsed.gender;
+          if (parsed.height) profileData.height = `${parsed.height} ซม.`;
+          if (parsed.weight) profileData.weight = `${parsed.weight} กก.`;
+          if (parsed.disease) profileData.disease = parsed.disease;
+          if (parsed.allergy) profileData.allergy = parsed.allergy;
+        } catch (e) {
+          console.error("Failed to parse profile:", e);
+        }
+      }
+
+      // Update UI
+      document.getElementById("userName").innerText = userName;
+      document.getElementById("userId").innerText = userId;
+
+      const avatarContainer = document.getElementById("avatarContainer");
+      if (userPicture) {
+        avatarContainer.innerHTML = `<img src="${userPicture}" alt="Profile" class="w-20 h-20 rounded-full object-cover border-3 border-white shadow-md ring-4 ring-emerald-100 mb-2.5" />`;
+      } else {
+        const initials = userName.split(" ").map(n => n.charAt(0)).join("").slice(0, 2);
+        document.getElementById("userInitials").innerText = initials;
+      }
+
+      const rows = [
+        { icon: "mdi:map-marker-outline", label: "ชุมชน", value: profileData.village },
+        { icon: "mdi:cake-variant-outline", label: "วันเกิด", value: profileData.birthday },
+        { icon: "mdi:calendar-account-outline", label: "อายุ", value: profileData.age },
+        { icon: "mdi:gender-female", label: "เพศ", value: profileData.gender },
+        { icon: "mdi:human-male-height", label: "ส่วนสูง", value: profileData.height },
+        { icon: "mdi:weight-kilogram", label: "น้ำหนัก", value: profileData.weight },
+        { icon: "mdi:hospital-box-outline", label: "โรคประจำตัว", value: profileData.disease },
+        { icon: "mdi:pill", label: "การแพ้ยา", value: profileData.allergy },
+      ];
+
+      const infoTable = document.getElementById("infoTable");
+      infoTable.innerHTML = rows.map(row => `
+        <div class="flex items-center justify-between py-3 border-b border-stone-100">
+          <div class="flex items-center gap-2 text-stone-600">
+            <span class="iconify text-lg text-[#2d7a3a] shrink-0" data-icon="${row.icon}"></span>
+            <span class="text-base font-medium">${row.label}</span>
+          </div>
+          <span class="text-base font-semibold text-black text-right">${row.value}</span>
+        </div>
+      `).join('');
+    }
+
+    loadProfile();
+  </script>
+</body>
+</html>

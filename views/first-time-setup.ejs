@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ตั้งค่าข้อมูลส่วนตัว - Slow Aging</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Iconify -->
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+  <!-- LIFF SDK -->
+  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Prompt', sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between" style="background-color: #f5f7f5;">
+
+  <div class="flex flex-col min-h-screen justify-between flex-1">
+    <div>
+      <!-- Header Banner สีเขียว -->
+      <div
+        class="w-full flex flex-col items-center px-6 pt-12 pb-10 sm:pt-14 sm:pb-12 text-white shadow-xs"
+        style="background: linear-gradient(135deg, #2d7a3a, #4caf50);"
+      >
+        <div class="w-full max-w-md md:max-w-2xl lg:max-w-3xl mx-auto flex flex-col items-center">
+          
+          <!-- รูปโปรไฟล์ -->
+          <div id="profileImageContainer" class="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 aspect-square rounded-3xl bg-white/20 backdrop-blur-xs flex items-center justify-center mb-3 shadow-inner ring-4 ring-white/20">
+            <span class="iconify text-white text-7xl sm:text-8xl md:text-9xl" data-icon="mdi:account-circle"></span>
+          </div>
+
+          <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center tracking-tight">
+            ตั้งค่าข้อมูลส่วนตัว
+          </h1>
+          <p class="text-base sm:text-lg md:text-xl text-center mt-1.5 text-emerald-50 font-medium">
+            กรอกข้อมูลของท่านเพื่อเริ่มต้นใช้งานระบบ
+          </p>
+        </div>
+      </div>
+
+      <!-- ฟอร์มกรอกข้อมูล -->
+      <div class="w-full max-w-md md:max-w-2xl lg:max-w-3xl mx-auto px-6 sm:px-8 md:px-10 py-6 sm:py-8 space-y-6 sm:space-y-7">
+        
+        <!-- กล่องช่องกรอกข้อมูล -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xs border border-stone-200/80 space-y-5 sm:space-y-6">
+          <div>
+            <label class="text-lg sm:text-xl md:text-2xl font-bold block mb-2" style="color: #1a2e1a;">
+              ชื่อ-นามสกุล <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              id="profileName"
+              class="w-full px-5 py-4 rounded-2xl border-2 text-lg sm:text-xl md:text-2xl focus:outline-none focus:ring-2 focus:ring-[#2d7a3a] transition-all font-medium"
+              style="border-color: #d1ded1; background: #f9fbf9; color: #1a2e1a;"
+              placeholder="กรอกชื่อและนามสกุล"
+            />
+          </div>
+
+          <div>
+            <label class="text-lg sm:text-xl md:text-2xl font-bold block mb-2" style="color: #1a2e1a;">
+              ชุมชน / หมู่บ้าน <span class="text-red-500">*</span>
+            </label>
+            <div class="relative">
+              <select
+                id="profileVillage"
+                class="w-full px-5 py-4 rounded-2xl border-2 text-lg sm:text-xl md:text-2xl focus:outline-none focus:ring-2 focus:ring-[#2d7a3a] transition-all font-medium appearance-none cursor-pointer"
+                style="border-color: #d1ded1; background: #f9fbf9; color: #1a2e1a;"
+              >
+                <option value="" disabled selected>- กรุณาเลือกชุมชน/หมู่บ้าน -</option>
+                <option value="ชุมชนบ้านสุขใจ">ชุมชนบ้านสุขใจ</option>
+                <option value="ชุมชนรักษ์ป่า">ชุมชนรักษ์ป่า</option>
+                <option value="ชุมชนพัฒนา">ชุมชนพัฒนา</option>
+                <option value="ชุมชนมิตรภาพ">ชุมชนมิตรภาพ</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-stone-500">
+                <span class="iconify text-2xl" data-icon="mdi:chevron-down"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Checkbox ยอมรับเงื่อนไข -->
+        <div>
+          <label
+            for="termsCheckbox"
+            class="flex items-start gap-3.5 p-4 sm:p-5 rounded-2xl bg-white border border-stone-200/80 shadow-xs cursor-pointer select-none hover:bg-emerald-50/40 transition-colors"
+          >
+            <input
+              type="checkbox"
+              id="termsCheckbox"
+              class="mt-1 w-6 h-6 sm:w-7 sm:h-7 rounded-lg border-2 border-stone-400 cursor-pointer shrink-0"
+              style="accent-color: #2d7a3a;"
+            />
+            <span class="text-base sm:text-lg md:text-xl text-stone-800 leading-relaxed font-medium">
+              ข้าพเจ้าได้อ่านและยินยอมรับ
+              <span class="underline font-bold" style="color: #2d7a3a;">เงื่อนไขและข้อตกลง</span>
+              ในการเข้าร่วมโครงการ
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ปุ่มกดยืนยันด้านล่าง -->
+    <div class="w-full max-w-md md:max-w-2xl lg:max-w-3xl mx-auto px-6 sm:px-8 md:px-10 pb-8 sm:pb-12 pt-2">
+      <button
+        id="submitBtn"
+        disabled
+        class="w-full py-4 sm:py-5 rounded-2xl font-bold text-white text-lg sm:text-xl md:text-2xl transition-all shadow-md cursor-not-allowed opacity-50"
+        style="background: #2d7a3a;"
+      >
+        เริ่มต้นใช้งาน
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const nameInput = document.getElementById('profileName');
+    const villageSelect = document.getElementById('profileVillage');
+    const termsCheckbox = document.getElementById('termsCheckbox');
+    const submitBtn = document.getElementById('submitBtn');
+    const profileImageContainer = document.getElementById('profileImageContainer');
+
+    let lineProfile = null;
+
+    // 🔴 ใส่ LIFF ID
+    const LIFF_ID = "<%= LIFF_ID %>";
+
+    async function initializeLiff() {
+      try {
+        await liff.init({ liffId: LIFF_ID });
+        if (liff.isLoggedIn()) {
+          lineProfile = await liff.getProfile();
+          
+          if (lineProfile.pictureUrl) {
+            profileImageContainer.innerHTML = `
+              <img
+                src="${lineProfile.pictureUrl}"
+                alt="Profile"
+                class="w-full h-full rounded-3xl object-cover border-4 border-white shadow-md ring-4 ring-emerald-700/20"
+              />
+            `;
+          }
+        } else {
+          // ถ้าไม่ได้ล็อกอิน ให้เด้งกลับไปหน้า login
+          // window.location.replace("/"); 
+        }
+      } catch (err) {
+        console.error("LIFF Init Error:", err);
+      }
+    }
+
+    initializeLiff();
+
+    function checkValidity() {
+      const isValid = 
+        nameInput.value.trim().length > 0 &&
+        villageSelect.value.trim().length > 0 &&
+        termsCheckbox.checked;
+
+      if (isValid) {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('cursor-not-allowed', 'opacity-50');
+        submitBtn.classList.add('cursor-pointer', 'active:scale-[0.98]', 'hover:opacity-95', 'shadow-emerald-900/20');
+      } else {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('cursor-not-allowed', 'opacity-50');
+        submitBtn.classList.remove('cursor-pointer', 'active:scale-[0.98]', 'hover:opacity-95', 'shadow-emerald-900/20');
+      }
+    }
+
+    nameInput.addEventListener('input', checkValidity);
+    villageSelect.addEventListener('change', checkValidity);
+    termsCheckbox.addEventListener('change', checkValidity);
+
+    submitBtn.addEventListener('click', async () => {
+      submitBtn.innerText = 'กำลังบันทึกข้อมูล...';
+      submitBtn.disabled = true;
+
+      const userData = {
+        userId: lineProfile ? lineProfile.userId : "U_MOCK_USER",
+        profileName: nameInput.value.trim(),
+        profileVillage: villageSelect.value.trim(),
+        pictureUrl: (lineProfile && lineProfile.pictureUrl) ? lineProfile.pictureUrl : "",
+        isAcceptedTerms: termsCheckbox.checked,
+      };
+
+      try {
+        // ยิง API บันทึกข้อมูล
+        const response = await fetch("http://localhost:5000/api/user/setup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(userData),
+        });
+        
+        const result = await response.json();
+        if(!result.success) throw new Error(result.message);
+
+        // จำลองบันทึกลง LocalStorage
+        localStorage.setItem("user_profile_data", JSON.stringify(result.data));
+        
+        // พาไปหน้า Home
+        window.location.replace("/home");
+
+      } catch (error) {
+        console.error("Setup error:", error);
+        alert(error.message || "เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+        submitBtn.innerText = 'เริ่มต้นใช้งาน';
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
