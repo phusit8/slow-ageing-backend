@@ -3,6 +3,9 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { IndexConfig } from '#configs/index.config.js';
+import "#models/sequelize/index.sequelize.js";
+import { router } from './src/routes/index.route.js';
 
 // จัดการ __dirname สำหรับ ESM
 const __filename = fileURLToPath(import.meta.url);
@@ -25,7 +28,16 @@ app.set('views', path.join(__dirname, 'views'));
 // ==========================================
 // API Routes (ถ้ามี)
 // ==========================================
+const root_api = '/api/v1'
+app.use(root_api, router)
+
+// const root_api = '/api/v1'
+// app.get(`${root_api}/roles`,(req,res)=>{
+// })
+
+
 app.post('/api/user/setup', (req, res) => {
+
     const userData = req.body;
     console.log("ได้รับข้อมูลตั้งค่า:", userData);
     // TODO: นำข้อมูลไปบันทึกลง Database จริงๆ
@@ -73,7 +85,10 @@ app.get('/calendar', (req, res) => {
 
 // Start Server (เฉพาะเมื่อไม่ได้รันบน serverless เช่น Vercel)
 if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
-    app.listen(PORT, () => {
+
+    app.listen(PORT, async () => {
+        await IndexConfig.connectDBViaSequelize()
+
         console.log(`🚀 Server is running on http://localhost:${PORT}`);
         console.log(`👉 หน้า Login: http://localhost:${PORT}/`);
     });

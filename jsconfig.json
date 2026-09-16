@@ -1,0 +1,20 @@
+{
+ "compilerOptions": {
+ "module": "ESNext",
+ "moduleResolution": "Bundler",
+// "moduleResolution": "node",
+// "baseUrl": ".",
+ "paths": {
+ "#configs/*": ["./src/configs/*"],
+ "#utils/*": ["./src/utils/*"],
+ "#constants/*": ["./src/constants/*"],
+ "#middlewares/*": ["./src/middlewares/*"],
+ "#controllers/*": ["./src/controllers/*"],
+ "#repositories/*": ["./src/repositories/*"],
+ "#models/*": ["./src/models/*"],
+ "#services/*": ["./src/services/*"],
+ "#validations/*": ["./src/validations/*"]
+ }
+ },
+ "exclude": ["node_modules"]
+}
