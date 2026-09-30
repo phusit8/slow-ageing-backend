@@ -3,9 +3,6 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { IndexConfig } from '#configs/index.config.js';
-import "#models/sequelize/index.sequelize.js";
-import { router } from './src/routes/index.route.js';
 
 // จัดการ __dirname สำหรับ ESM
 const __filename = fileURLToPath(import.meta.url);
@@ -33,8 +30,23 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.resolve(process.cwd(), 'public')));
 
-// Routes
-app.use('/', router);
+// โหลด Models + Routes แบบ Safe (ไม่แครชถ้า DB ไม่พร้อม)
+try {
+    await import("#models/sequelize/index.sequelize.js");
+} catch (err) {
+    console.warn("⚠️ Could not load Sequelize models:", err.message);
+}
+
+try {
+    const { router } = await import('./src/routes/index.route.js');
+    app.use('/', router);
+} catch (err) {
+    console.error("❌ Could not load routes:", err.message);
+    // Fallback: ให้หน้า / แสดง Error แทนที่จะ Crash
+    app.get('*', (req, res) => {
+        res.status(500).send(`<h1>App failed to load routes</h1><pre>${err.stack}</pre>`);
+    });
+}
 
 // Global Error Handler ป้องกัน Serverless Crash 500
 app.use((err, req, res, next) => {
@@ -50,8 +62,9 @@ app.use((err, req, res, next) => {
 
 // Start Server (เฉพาะเมื่อไม่ได้รันบน serverless เช่น Vercel)
 if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+    const { IndexConfig } = await import('#configs/index.config.js');
     app.listen(PORT, async () => {
-        await IndexConfig.connectDBViaSequelize()
+        await IndexConfig.connectDBViaSequelize();
         console.log(`🚀 Server is running on http://localhost:${PORT}`);
         console.log(`👉 หน้า Login: http://localhost:${PORT}/`);
     });

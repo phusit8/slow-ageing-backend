@@ -27,17 +27,7 @@ import {
  * @property {number} pool.acquire - เวลาสูงสุด (ms) ที่จะรอเพื่อให้ได้การเชื่อมต่อก่อนจะพ่น Error
  * @property {number} pool.idle - เวลาสูงสุด (ms) ที่การเชื่อมต่อสามารถปล่อยว่างได้ก่อนจะถูกปิดลง
  */
-console.log("HI")
-console.log(DB_DATABASE,
-    DB_USERNAME,
-    DB_PASSWORD,
-    DB_HOST,
-    DB_PORT,
-    DB_TYPE,
-    SEQUELIZE_MIN,
-    SEQUELIZE_MAX,
-    SEQUELIZE_IDLE,
-    SEQUELIZE_ACQUIRE,)
+
 
 export const sequelize = new Sequelize(DB_DATABASE, DB_USERNAME, DB_PASSWORD, {
     host: DB_HOST,
