@@ -4,7 +4,7 @@ import { methods as exercisesService } from "#services/exercises.service.js";
 const router = express.Router();
 
 const LIFF_ID = process.env.LIFF_ID || "YOUR_LIFF_ID_HERE";
-const DEV_MODE = process.env.DEV_MODE === "false";
+const DEV_MODE = process.env.DEV_MODE === "true";  
 
 // ถ้าเปิด DEV_MODE → เข้า / จะ redirect ตรงไปหน้า home ข้าม LINE
 router.get(['/', '/login'], (req, res) => {
