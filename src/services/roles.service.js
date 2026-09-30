@@ -1,6 +1,18 @@
 import { methods as roleRepo } from "../repositories/roles.repositorie.js"
 import crypto from "crypto"
-import argon2 from "argon2"
+import { promisify } from "util"
+
+const scryptAsync = promisify(crypto.scrypt);
+
+/**
+ * Hash password using Node.js built-in crypto.scrypt (no native addon needed)
+ */
+async function hashPassword(password) {
+    const salt = crypto.randomBytes(16).toString('hex');
+    const derivedKey = await scryptAsync(password, salt, 64);
+    return `${salt}:${derivedKey.toString('hex')}`;
+}
+
 export const methods = {
     async getall(req, res) {
         try {
@@ -33,9 +45,7 @@ export const methods = {
             };
         }
 
-        const passwordHash = await argon2.hash(body.password, {
-            type: argon2.argon2id,
-        });
+        const passwordHash = await hashPassword(body.password);
 
         const data = {
             full_name: body.full_name,
