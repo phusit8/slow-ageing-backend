@@ -22,6 +22,12 @@ app.use(express.json());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src', 'views'));
 
+// ป้องกัน Browser/LINE In-App แคชหน้าเว็บค้าง
+app.use((req, res, next) => {
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+    next();
+});
+
 // Static Files (รูปภาพ, CSS, JS ใน /public)
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/assets', express.static(path.resolve(__dirname, '..', 'sa-backoffice', 'src', 'public', 'assets')));
