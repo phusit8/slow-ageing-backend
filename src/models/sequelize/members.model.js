@@ -92,8 +92,12 @@ const MembersSequelizeSchema = sqlConfig.define(
     }
 );
 
-MembersSequelizeSchema.sync().then(() => {
-    console.log(`${_SCHEMA} - ${_TABLE} Model synced`);
-});
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+    MembersSequelizeSchema.sync().then(() => {
+        console.log(`${_SCHEMA} - ${_TABLE} Model synced`);
+    }).catch(err => {
+        console.warn(`Could not sync ${_TABLE}:`, err.message);
+    });
+}
 
 export { MembersSequelizeSchema };

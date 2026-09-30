@@ -1,30 +1,24 @@
 
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config();
 dotenv.config({
-     path: "./src/configs/.env",
+     path: path.resolve(__dirname, "../configs/.env"),
 });
 
-console.log(
-     process.env.DB_DATABASE,
-     process.env.DB_USERNAME,
-     process.env.DB_PASSWORD,
-     process.env.DB_HOST,
-     process.env.DB_PORT,
-     process.env.DB_TYPE,
-     process.env.SEQUELIZE_MIN,
-     process.env.SEQUELIZE_MAX,
-     process.env.SEQUELIZE_IDLE,
-     process.env.SEQUELIZE_ACQUIRE,)
-console.log(123);
-
-export const PASSPHRASE = process.env.PASSPHRASE;
-export const DB_DATABASE = process.env.DB_DATABASE;
-export const DB_USERNAME = process.env.DB_USERNAME;
-export const DB_PASSWORD = process.env.DB_PASSWORD;
-export const DB_HOST = process.env.DB_HOST;
-export const DB_PORT = process.env.DB_PORT;
-export const DB_TYPE = process.env.DB_TYPE;
-export const SEQUELIZE_MIN = process.env.SEQUELIZE_MIN;
-export const SEQUELIZE_MAX = process.env.SEQUELIZE_MAX;
-export const SEQUELIZE_IDLE = process.env.SEQUELIZE_IDLE;
-export const SEQUELIZE_ACQUIRE = process.env.SEQUELIZE_ACQUIRE;
+export const PASSPHRASE = process.env.PASSPHRASE || "";
+export const DB_DATABASE = process.env.DB_DATABASE || "slowageing";
+export const DB_USERNAME = process.env.DB_USERNAME || "postgres";
+export const DB_PASSWORD = process.env.DB_PASSWORD || "12345678";
+export const DB_HOST = process.env.DB_HOST || "localhost";
+export const DB_PORT = process.env.DB_PORT || 5432;
+export const DB_TYPE = process.env.DB_TYPE || "postgres";
+export const SEQUELIZE_MIN = process.env.SEQUELIZE_MIN || "0";
+export const SEQUELIZE_MAX = process.env.SEQUELIZE_MAX || "10";
+export const SEQUELIZE_IDLE = process.env.SEQUELIZE_IDLE || "10000";
+export const SEQUELIZE_ACQUIRE = process.env.SEQUELIZE_ACQUIRE || "30000";

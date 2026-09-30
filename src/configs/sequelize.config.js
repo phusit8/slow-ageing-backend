@@ -41,13 +41,19 @@ console.log(DB_DATABASE,
 
 export const sequelize = new Sequelize(DB_DATABASE, DB_USERNAME, DB_PASSWORD, {
     host: DB_HOST,
-    port: DB_PORT,
-    dialect: DB_TYPE,
+    port: parseInt(DB_PORT) || 5432,
+    dialect: DB_TYPE || "postgres",
     logging: false,
+    dialectOptions: (process.env.DB_SSL === "true" || (process.env.NODE_ENV === "production" && DB_HOST !== "localhost")) ? {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false
+        }
+    } : {},
     pool: {
-        max: parseInt(SEQUELIZE_MAX),
-        min: parseInt(SEQUELIZE_MIN),
-        acquire: parseInt(SEQUELIZE_ACQUIRE),
-        idle: parseInt(SEQUELIZE_IDLE),
+        max: parseInt(SEQUELIZE_MAX) || 10,
+        min: parseInt(SEQUELIZE_MIN) || 0,
+        acquire: parseInt(SEQUELIZE_ACQUIRE) || 30000,
+        idle: parseInt(SEQUELIZE_IDLE) || 10000,
     },
 });

@@ -120,8 +120,12 @@ const UsersSequelizeSchema = sqlConfig.define(
     },
 );
 
-UsersSequelizeSchema.sync().then(() => {
-    console.log(`${_SCHEMA} - ${_TABLE} Model synced`);
-});
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+    UsersSequelizeSchema.sync().then(() => {
+        console.log(`${_SCHEMA} - ${_TABLE} Model synced`);
+    }).catch(err => {
+        console.warn(`Could not sync ${_TABLE}:`, err.message);
+    });
+}
 
 export { UsersSequelizeSchema };
