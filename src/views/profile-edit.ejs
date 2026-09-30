@@ -8,18 +8,18 @@
   <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
   <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap');
-    body { font-family: 'Prompt', sans-serif; }
+    @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap');
+    body { font-family: 'Sarabun', sans-serif; }
   </style>
 </head>
-<body class="bg-[#f5f7f5]">
+<body class="bg-white min-h-screen">
   <div class="flex flex-col min-h-screen w-full">
     <div class="w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto flex-1 flex flex-col px-5 pt-6 pb-12">
 
       <!-- Header -->
       <div class="relative flex items-center justify-center mb-6">
         <a href="/profile" class="absolute left-0 p-2 -ml-2 text-black cursor-pointer hover:bg-stone-200/60 rounded-2xl transition-colors">
-          <span class="iconify text-3xl sm:text-4xl" data-icon="mdi:arrow-left"></span>
+          <span class="iconify text-3xl sm:text-4xl" data-icon="solar:arrow-left-outline"></span>
         </a>
         <h1 class="text-3xl sm:text-4xl font-extrabold text-[#1a2e1a]">แก้ไขข้อมูลส่วนตัว</h1>
       </div>
@@ -27,7 +27,7 @@
       <!-- Avatar -->
       <div class="flex flex-col items-center mb-6" id="avatarContainer">
         <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full flex items-center justify-center shadow-md ring-4 ring-emerald-100" style="background: #d4edda;">
-          <span class="iconify text-6xl text-[#2d7a3a]" data-icon="mdi:account-circle"></span>
+          <span class="iconify text-6xl text-[#2d7a3a]" data-icon="solar:user-circle-outline"></span>
         </div>
       </div>
 
@@ -50,7 +50,7 @@
               <option value="ชุมชนมิตรภาพ">ชุมชนมิตรภาพ</option>
             </select>
             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-stone-600">
-              <span class="iconify text-3xl sm:text-4xl" data-icon="mdi:chevron-down"></span>
+              <span class="iconify text-3xl sm:text-4xl" data-icon="solar:alt-arrow-down-outline"></span>
             </div>
           </div>
         </div>
@@ -69,7 +69,7 @@
               <option value="หญิง">หญิง</option>
             </select>
             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-stone-600">
-              <span class="iconify text-3xl sm:text-4xl" data-icon="mdi:chevron-down"></span>
+              <span class="iconify text-3xl sm:text-4xl" data-icon="solar:alt-arrow-down-outline"></span>
             </div>
           </div>
         </div>
@@ -87,12 +87,12 @@
 
         <div>
           <label class="text-xl sm:text-2xl font-extrabold text-[#1a2e1a] block mb-2">โรคประจำตัว</label>
-          <input type="text" id="disease" class="w-full px-5 py-4 rounded-2xl border-2 text-xl sm:text-2xl focus:outline-none focus:ring-4 focus:ring-[#2d7a3a]/30 font-semibold" style="border-color: #c5d6c5; background: #f9fbf9; color: #1a2e1a;" placeholder="เช่น ความดันโลหิตสูง หรือ ไม่มี" />
+          <textarea id="disease" rows="2" class="w-full px-5 py-4 rounded-2xl border-2 text-xl sm:text-2xl focus:outline-none focus:ring-4 focus:ring-[#2d7a3a]/30 font-semibold resize-none" style="border-color: #c5d6c5; background: #f9fbf9; color: #1a2e1a;" placeholder="เช่น ความดันโลหิตสูง, เบาหวาน (ระบุหลายรายการได้) หรือ ไม่มี"></textarea>
         </div>
 
         <div>
           <label class="text-xl sm:text-2xl font-extrabold text-[#1a2e1a] block mb-2">การแพ้ยา</label>
-          <input type="text" id="allergy" class="w-full px-5 py-4 rounded-2xl border-2 text-xl sm:text-2xl focus:outline-none focus:ring-4 focus:ring-[#2d7a3a]/30 font-semibold" style="border-color: #c5d6c5; background: #f9fbf9; color: #1a2e1a;" placeholder="เช่น แอสไพริน หรือ ไม่มี" />
+          <textarea id="allergy" rows="2" class="w-full px-5 py-4 rounded-2xl border-2 text-xl sm:text-2xl focus:outline-none focus:ring-4 focus:ring-[#2d7a3a]/30 font-semibold resize-none" style="border-color: #c5d6c5; background: #f9fbf9; color: #1a2e1a;" placeholder="เช่น แอสไพริน, เพนิซิลลิน (ระบุหลายรายการได้) หรือ ไม่มี"></textarea>
         </div>
 
       </div>
@@ -100,7 +100,7 @@
       <!-- ปุ่มบันทึก -->
       <div class="pt-8">
         <button id="saveBtn" disabled class="w-full flex items-center justify-center gap-3 py-5 sm:py-6 rounded-2xl font-extrabold text-white text-2xl sm:text-3xl transition-all shadow-lg cursor-not-allowed opacity-50" style="background: #2d7a3a;">
-          <span class="iconify text-3xl sm:text-4xl" data-icon="mdi:check"></span>
+          <span class="iconify text-3xl sm:text-4xl" data-icon="solar:check-circle-outline"></span>
           <span id="saveBtnText">บันทึกข้อมูล</span>
         </button>
       </div>
@@ -180,7 +180,7 @@
     inputs.profileName.addEventListener('input', checkValidity);
     inputs.profileVillage.addEventListener('change', checkValidity);
 
-    saveBtn.addEventListener('click', () => {
+    saveBtn.addEventListener('click', async () => {
       saveBtnText.innerText = 'กำลังบันทึก...';
       saveBtn.disabled = true;
 
@@ -190,15 +190,38 @@
 
         const userData = {
           ...prev,
+          userId: prev.userId || "U_DEV",
           profileName: inputs.profileName.value.trim(),
           profileVillage: inputs.profileVillage.value.trim(),
           birthday: inputs.birthday.value.trim(),
           gender: inputs.gender.value.trim(),
-          height: inputs.height.value.trim(),
-          weight: inputs.weight.value.trim(),
+          height: inputs.height.value.trim().replace(/[^\d.]/g, ''),
+          weight: inputs.weight.value.trim().replace(/[^\d.]/g, ''),
           disease: inputs.disease.value.trim(),
           allergy: inputs.allergy.value.trim(),
         };
+
+        // บันทึกลง PostgreSQL ผ่าน API
+        try {
+          await fetch("/api/members/setup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              userId: userData.userId,
+              profileName: userData.profileName,
+              profileVillage: userData.profileVillage,
+              pictureUrl: userData.pictureUrl || "",
+              birth_date: userData.birthday ? null : null,
+              gender: userData.gender,
+              height: userData.height ? parseFloat(userData.height) : null,
+              weight: userData.weight ? parseFloat(userData.weight) : null,
+              chronic_diseases: userData.disease,
+              drug_allergies: userData.allergy,
+            })
+          });
+        } catch (apiErr) {
+          console.warn("API save warning:", apiErr);
+        }
 
         localStorage.setItem("user_profile_data", JSON.stringify(userData));
         window.location.href = "/profile";

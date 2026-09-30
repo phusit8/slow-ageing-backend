@@ -4,124 +4,281 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ข้อมูลส่วนตัว - Slow Aging</title>
+  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap');
-    body { font-family: 'Prompt', sans-serif; }
+    @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap');
+    body {
+      font-family: 'Sarabun', sans-serif;
+    }
   </style>
 </head>
-<body class="bg-[#f5f7f5]">
-  <div class="flex flex-col min-h-screen w-full">
-    <div class="w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto flex-1 flex flex-col px-5 pt-6 pb-10">
-      
+<body class="bg-white text-[#1a2e1a] min-h-screen">
+  <div class="w-full max-w-md sm:max-w-lg mx-auto min-h-screen flex flex-col justify-between px-5 sm:px-7 pt-6 sm:pt-8 pb-10">
+    
+    <div>
       <!-- Header -->
       <div class="relative flex items-center justify-center mb-6">
-        <a href="/home" class="absolute left-0 p-2 -ml-2 text-black cursor-pointer hover:bg-stone-200/60 rounded-2xl transition-colors">
-          <span class="iconify text-3xl sm:text-4xl" data-icon="mdi:arrow-left"></span>
+        <a href="/home" class="absolute left-0 p-2 -ml-2 text-black cursor-pointer hover:bg-stone-100 rounded-2xl transition-colors">
+          <span class="iconify text-3xl sm:text-4xl" data-icon="solar:arrow-left-outline"></span>
         </a>
-        <h1 class="text-3xl sm:text-4xl font-extrabold text-[#1a2e1a]">ข้อมูลส่วนตัว</h1>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-[#1a2e1a] text-center">
+          ข้อมูลส่วนตัว
+        </h1>
       </div>
 
       <!-- Avatar + ชื่อ -->
-      <div class="flex flex-col items-center mb-6 bg-white p-6 rounded-3xl border border-stone-200 shadow-sm">
-        <div id="avatarContainer">
-          <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full flex items-center justify-center mb-3 shadow-md ring-4 ring-emerald-100" style="background: #d4edda;">
-            <span class="text-3xl sm:text-4xl font-extrabold text-[#2d7a3a]" id="userInitials">--</span>
+      <div class="flex flex-col items-center mb-6 text-center">
+        <div id="avatarContainer" class="mb-3">
+          <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full flex items-center justify-center bg-[#a8d8ab] shadow-2xs">
+            <span class="text-3xl sm:text-4xl font-extrabold text-[#1e5a2b]" id="userInitials">-</span>
           </div>
         </div>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-[#1a2e1a] text-center" id="userName">กำลังโหลด...</h2>
-        <p class="text-base sm:text-lg text-stone-500 font-bold mt-1">ID: <span id="userId" class="text-stone-700">--</span></p>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-[#1a2e1a]" id="userName">
+          -
+        </h2>
+        <p class="text-base sm:text-lg text-stone-400 font-semibold mt-0.5">
+          ID: <span id="userId">-</span>
+        </p>
       </div>
 
-      <!-- ตารางข้อมูลส่วนตัว -->
-      <div class="bg-white rounded-3xl p-6 sm:p-7 border border-stone-200 shadow-sm space-y-1 divide-y divide-stone-100" id="infoTable">
-        <!-- JS Inject -->
+      <!-- รายการข้อมูลส่วนตัว (แบ่งแต่ละรายการด้วยเส้นคั่นบางๆ ตามรูป) -->
+      <div class="divide-y divide-stone-100 text-left" id="infoContainer">
+        <!-- Injected by JS -->
       </div>
-
-      <!-- ปุ่มแก้ไขข้อมูล -->
-      <div class="mt-auto pt-8">
-        <a href="/profile/edit" class="w-full flex items-center justify-center gap-3 py-5 sm:py-6 rounded-2xl border-3 border-[#2d7a3a] bg-white text-[#2d7a3a] text-2xl sm:text-3xl font-extrabold cursor-pointer active:scale-[0.98] hover:bg-emerald-50 transition-all shadow-sm">
-          <span class="iconify text-3xl sm:text-4xl" data-icon="mdi:pencil-outline"></span>
-          <span>แก้ไขข้อมูลส่วนตัว</span>
-        </a>
-      </div>
-
     </div>
+
+    <!-- ปุ่มดำเนินการด้านล่าง -->
+    <div class="pt-8 mt-6 space-y-3">
+      <a href="/profile/edit"
+        class="w-full flex items-center justify-center gap-2.5 py-4 sm:py-5 rounded-2xl border-2 border-[#276735] bg-white text-[#276735] text-2xl sm:text-3xl font-extrabold cursor-pointer active:scale-[0.99] hover:bg-emerald-50/50 transition-all shadow-xs">
+        <span class="iconify text-2xl sm:text-3xl" data-icon="solar:pen-outline"></span>
+        <span>แก้ไขข้อมูลส่วนตัว</span>
+      </a>
+
+      <!-- ปุ่มออกจากระบบ -->
+      <button type="button" onclick="openLogoutModal()"
+        class="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl text-stone-500 hover:text-red-600 hover:bg-red-50 text-xl sm:text-2xl font-bold cursor-pointer transition-colors active:scale-[0.99]">
+        <span class="iconify text-2xl" data-icon="solar:logout-2-outline"></span>
+        <span>ออกจากระบบ</span>
+      </button>
+    </div>
+
   </div>
 
   <script>
-    function loadProfile() {
-      let userName = "คุณยายสมศรี ใจดี";
+    async function loadProfile() {
+      let userName = "-";
       let userPicture = "";
-      let userId = "1234567890";
+      let userId = "-";
       let profileData = {
-        village: "ชุมชนบ้านสุขใจ",
-        birthday: "15 พฤษภาคม 2490",
-        age: "77 ปี",
-        gender: "หญิง",
-        height: "158 ซม.",
-        weight: "58 กก.",
-        disease: "ความดันโลหิตสูง",
-        allergy: "ไม่มี",
+        village: "-",
+        birthday: "-",
+        age: "-",
+        gender: "-",
+        height: "-",
+        weight: "-",
+        disease: "-",
+        allergy: "-",
       };
 
       const savedData = localStorage.getItem("user_profile_data");
+      let localParsed = null;
       if (savedData) {
         try {
-          const parsed = JSON.parse(savedData);
-          if (parsed.profileName) userName = parsed.profileName;
-          if (parsed.pictureUrl) userPicture = parsed.pictureUrl;
-          if (parsed.userId) userId = parsed.userId;
-          if (parsed.profileVillage) profileData.village = parsed.profileVillage;
-          if (parsed.birthday) profileData.birthday = parsed.birthday;
-          if (parsed.age) profileData.age = parsed.age;
-          if (parsed.gender) profileData.gender = parsed.gender;
-          if (parsed.height) profileData.height = `${parsed.height} ซม.`;
-          if (parsed.weight) profileData.weight = `${parsed.weight} กก.`;
-          if (parsed.disease) profileData.disease = parsed.disease;
-          if (parsed.allergy) profileData.allergy = parsed.allergy;
+          localParsed = JSON.parse(savedData);
+          if (localParsed.profileName) userName = localParsed.profileName;
+          if (localParsed.pictureUrl) userPicture = localParsed.pictureUrl;
+          if (localParsed.userId) userId = localParsed.userId;
+          if (localParsed.profileVillage) profileData.village = localParsed.profileVillage;
+          if (localParsed.birthday) profileData.birthday = localParsed.birthday;
+          if (localParsed.age) profileData.age = localParsed.age;
+          if (localParsed.gender) profileData.gender = localParsed.gender;
+          if (localParsed.height) profileData.height = `${localParsed.height}`.includes("ซม") ? localParsed.height : `${localParsed.height} ซม.`;
+          if (localParsed.weight) profileData.weight = `${localParsed.weight}`.includes("กก") ? localParsed.weight : `${localParsed.weight} กก.`;
+          if (localParsed.disease) profileData.disease = localParsed.disease;
+          if (localParsed.allergy) profileData.allergy = localParsed.allergy;
         } catch (e) {
           console.error("Failed to parse profile:", e);
         }
       }
 
-      // Update UI
+      // ดึงข้อมูลจริงจาก PostgreSQL (members table)
+      const targetUserId = userId !== "-" ? userId : (localParsed?.userId || "U_DEV");
+      try {
+        const res = await fetch(`/api/members/${targetUserId}`);
+        if (res.ok) {
+          const dbMember = await res.json();
+          if (dbMember) {
+            if (dbMember.full_name) userName = dbMember.full_name;
+            if (dbMember.profile_image) userPicture = dbMember.profile_image;
+            if (dbMember.line_id) userId = dbMember.line_id;
+            if (dbMember.community) profileData.village = dbMember.community;
+            if (dbMember.birth_date) profileData.birthday = dbMember.birth_date;
+            if (dbMember.gender) profileData.gender = dbMember.gender === 'female' ? 'หญิง' : (dbMember.gender === 'male' ? 'ชาย' : dbMember.gender);
+            if (dbMember.height) profileData.height = `${dbMember.height} ซม.`;
+            if (dbMember.weight) profileData.weight = `${dbMember.weight} กก.`;
+            if (dbMember.chronic_diseases) profileData.disease = dbMember.chronic_diseases;
+            if (dbMember.drug_allergies) profileData.allergy = dbMember.drug_allergies;
+          }
+        }
+      } catch (err) {
+        console.warn("DB fetch profile error:", err);
+      }
+
+      // Update UI Header
       document.getElementById("userName").innerText = userName;
       document.getElementById("userId").innerText = userId;
 
       const avatarContainer = document.getElementById("avatarContainer");
       if (userPicture) {
-        avatarContainer.innerHTML = `<img src="${userPicture}" alt="Profile" class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-white shadow-md ring-4 ring-emerald-100 mb-3" />`;
+        avatarContainer.innerHTML = `<img src="${userPicture}" alt="Profile" class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover shadow-2xs" />`;
       } else {
-        const initials = userName.split(" ").map(n => n.charAt(0)).join("").slice(0, 2);
+        const initials = userName !== "-" ? userName.split(" ").map(n => n.charAt(0)).join("").slice(0, 2) : "ผ";
         document.getElementById("userInitials").innerText = initials;
       }
 
       const rows = [
-        { icon: "mdi:map-marker-outline", label: "ชุมชน", value: profileData.village },
-        { icon: "mdi:cake-variant-outline", label: "วันเกิด", value: profileData.birthday },
-        { icon: "mdi:calendar-account-outline", label: "อายุ", value: profileData.age },
-        { icon: "mdi:gender-female", label: "เพศ", value: profileData.gender },
-        { icon: "mdi:human-male-height", label: "ส่วนสูง", value: profileData.height },
-        { icon: "mdi:weight-kilogram", label: "น้ำหนัก", value: profileData.weight },
-        { icon: "mdi:hospital-box-outline", label: "โรคประจำตัว", value: profileData.disease },
-        { icon: "mdi:pill", label: "การแพ้ยา", value: profileData.allergy },
+        { key: "village", icon: "solar:map-point-outline", label: "ชุมชน", value: profileData.village },
+        { key: "birthday", icon: "solar:cupcake-outline", label: "วันเกิด", value: profileData.birthday },
+        { key: "age", icon: "solar:calendar-outline", label: "อายุ", value: profileData.age },
+        { key: "gender", icon: "solar:user-outline", label: "เพศ", value: profileData.gender },
+        { key: "height", icon: "solar:ruler-outline", label: "ส่วนสูง", value: profileData.height },
+        { key: "weight", icon: "solar:scale-outline", label: "น้ำหนัก", value: profileData.weight },
+        { key: "disease", icon: "solar:heart-pulse-outline", label: "โรคประจำตัว", value: profileData.disease },
+        { key: "allergy", icon: "solar:pill-outline", label: "การแพ้ยา", value: profileData.allergy },
       ];
 
-      const infoTable = document.getElementById("infoTable");
-      infoTable.innerHTML = rows.map(row => `
-        <div class="flex items-center justify-between py-4 sm:py-5">
-          <div class="flex items-center gap-3 text-stone-700">
-            <span class="iconify text-2xl sm:text-3xl text-[#2d7a3a] shrink-0" data-icon="${row.icon}"></span>
-            <span class="text-xl sm:text-2xl font-bold">${row.label}</span>
+      const container = document.getElementById("infoContainer");
+      container.innerHTML = "";
+
+      rows.forEach(item => {
+        const rowDiv = document.createElement("div");
+        rowDiv.className = "py-3 sm:py-3.5";
+
+        let valueContentHtml = "";
+        const rawVal = (item.value || "").trim();
+
+        // ฟิลด์ โรคประจำตัว และ การแพ้ยา ที่รองรับข้อความยาวๆ หรือหลายรายการ
+        if (item.key === "disease" || item.key === "allergy") {
+          if (!rawVal || rawVal === "-" || rawVal === "ไม่มี") {
+            valueContentHtml = `
+              <p class="text-lg sm:text-xl text-stone-500 font-medium mt-0.5">
+                ไม่มี
+              </p>
+            `;
+          } else {
+            // แยกรายการด้วยเครื่องหมายจุลภาค (,), ขึ้นบรรทัดใหม่ (\n), หรือเซมิโคลอน (;)
+            const listItems = rawVal.split(/[,，\n;]+/).map(s => s.trim()).filter(Boolean);
+
+            if (listItems.length > 1) {
+              // กรณีมีหลายรายการ: แสดงรายการแยกเป็นข้อๆ อย่างชัดเจนสำหรับผู้สูงอายุ
+              valueContentHtml = `
+                <div class="mt-1.5 space-y-1.5">
+                  ${listItems.map(val => `
+                    <div class="flex items-start gap-2.5 text-stone-600 text-lg sm:text-xl font-medium leading-relaxed">
+                      <span class="w-2 h-2 rounded-full ${item.key === 'allergy' ? 'bg-red-500' : 'bg-[#276735]'} shrink-0 mt-2.5"></span>
+                      <span class="break-words flex-1">${val}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              `;
+            } else {
+              // กรณีเป็นข้อความยาว 1 รายการ: ตัดคำอัตโนมัติ ไม่ล้นจอ และอ่านสบายตา
+              valueContentHtml = `
+                <p class="text-lg sm:text-xl text-stone-600 font-medium mt-0.5 break-words leading-relaxed">
+                  ${rawVal}
+                </p>
+              `;
+            }
+          }
+        } else {
+          // ฟิลด์ข้อมูลทั่วไป
+          valueContentHtml = `
+            <p class="text-lg sm:text-xl text-stone-500 font-medium mt-0.5 break-words">
+              ${rawVal || "-"}
+            </p>
+          `;
+        }
+
+        rowDiv.innerHTML = `
+          <div class="flex items-center gap-2 text-[#1a2e1a] font-bold text-xl sm:text-2xl">
+            <span class="iconify text-2xl text-stone-800 shrink-0" data-icon="${item.icon}"></span>
+            <span>${item.label}</span>
           </div>
-          <span class="text-xl sm:text-2xl font-extrabold text-[#1a2e1a] text-right">${row.value}</span>
-        </div>
-      `).join('');
+          ${valueContentHtml}
+        `;
+
+        container.appendChild(rowDiv);
+      });
+    }
+
+    const LIFF_ID = "<%= typeof LIFF_ID !== 'undefined' ? LIFF_ID : '' %>";
+
+    function openLogoutModal() {
+      document.getElementById("logoutModal").classList.remove("hidden");
+    }
+
+    function closeLogoutModal() {
+      document.getElementById("logoutModal").classList.add("hidden");
+    }
+
+    async function confirmLogoutAction() {
+      const confirmBtn = document.getElementById("confirmLogoutBtn");
+      if (confirmBtn) {
+        confirmBtn.disabled = true;
+        confirmBtn.innerText = "กำลังออกจากระบบ...";
+      }
+
+      try {
+        localStorage.removeItem("user_profile_data");
+        localStorage.removeItem("exercise_tasks_data");
+        localStorage.removeItem("previous_incomplete_tasks");
+
+        if (typeof liff !== "undefined" && LIFF_ID) {
+          try {
+            await liff.init({ liffId: LIFF_ID });
+            if (liff.isLoggedIn()) {
+              liff.logout();
+            }
+          } catch (e) {
+            console.warn("LIFF logout error:", e);
+          }
+        }
+      } catch (err) {
+        console.error("Logout error:", err);
+      } finally {
+        window.location.href = "/login";
+      }
     }
 
     loadProfile();
   </script>
+
+  <!-- Modal ยืนยันการออกจากระบบ -->
+  <div id="logoutModal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-xs hidden transition-opacity">
+    <div class="bg-white rounded-3xl p-6 sm:p-7 max-w-sm w-full text-center shadow-2xl">
+      <div class="w-16 h-16 rounded-full bg-red-100 text-red-600 mx-auto flex items-center justify-center mb-4">
+        <span class="iconify text-3xl" data-icon="solar:logout-2-outline"></span>
+      </div>
+      <h3 class="text-2xl sm:text-3xl font-extrabold text-[#1a2e1a] mb-2">
+        ออกจากระบบ
+      </h3>
+      <p class="text-stone-500 text-lg sm:text-xl font-medium mb-6 leading-relaxed">
+        ท่านต้องการออกจากระบบและกลับสู่หน้าเริ่มต้นใช่หรือไม่?
+      </p>
+      <div class="flex flex-col gap-2.5">
+        <button id="confirmLogoutBtn" type="button" onclick="confirmLogoutAction()"
+          class="w-full py-4 rounded-2xl bg-red-600 hover:bg-red-700 text-white text-xl sm:text-2xl font-extrabold cursor-pointer active:scale-[0.98] transition-transform shadow-md">
+          ยืนยันออกจากระบบ
+        </button>
+        <button type="button" onclick="closeLogoutModal()"
+          class="w-full py-3.5 rounded-2xl bg-stone-100 hover:bg-stone-200 text-stone-700 text-lg sm:text-xl font-bold cursor-pointer active:scale-[0.98] transition-colors">
+          ยกเลิก
+        </button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

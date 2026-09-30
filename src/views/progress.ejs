@@ -7,10 +7,9 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap');
-    body { font-family: 'Prompt', sans-serif; }
+    @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap');
+    body { font-family: 'Sarabun', sans-serif; }
     
-    /* Custom Dropdown Animation */
     .dropdown-menu {
       transform-origin: top right;
       transition: all 0.18s ease-out;
@@ -27,14 +26,14 @@
     }
   </style>
 </head>
-<body class="bg-white sm:bg-[#f8faf8] text-[#1a2e1a] antialiased">
+<body class="bg-white text-[#1a2e1a] min-h-screen antialiased">
   <div class="flex flex-col min-h-screen w-full">
     <div class="w-full max-w-md sm:max-w-lg mx-auto flex-1 flex flex-col px-4 pt-5 pb-12 space-y-4 sm:space-y-4.5">
 
       <!-- Header -->
       <div class="relative flex items-center justify-center py-2 mb-1">
         <a href="/home" class="absolute left-0 p-1.5 -ml-1 text-black cursor-pointer hover:bg-stone-100 rounded-2xl transition-colors">
-          <span class="iconify text-3xl sm:text-4xl" data-icon="mdi:arrow-left"></span>
+          <span class="iconify text-3xl sm:text-4xl" data-icon="solar:arrow-left-outline"></span>
         </a>
         <h1 class="text-3xl sm:text-4xl font-extrabold text-[#1a2e1a] tracking-tight">ความก้าวหน้า</h1>
       </div>
@@ -42,7 +41,7 @@
       <!-- =========================================================
            Card 1: ความสำเร็จโดยรวม
            ========================================================= -->
-      <div class="bg-white rounded-3xl p-5 sm:p-6 border border-stone-200 shadow-xs">
+      <div class="bg-white rounded-3xl p-5 sm:p-6 border border-stone-200/80 shadow-xs">
         <h2 class="text-2xl sm:text-3xl font-extrabold text-[#1a2e1a] mb-5">ความสำเร็จโดยรวม</h2>
         
         <div class="flex items-center gap-6 pl-2">
@@ -76,7 +75,7 @@
             <p class="text-2xl sm:text-3xl font-extrabold text-[#1e6b32]">
               ทำได้ <span id="daysCompleted">24</span> วัน
             </p>
-            <p class="text-base sm:text-lg font-bold text-stone-600">
+            <p class="text-base sm:text-lg font-bold text-stone-500">
               จาก <span id="totalDays">31</span> วัน
             </p>
           </div>
@@ -86,7 +85,7 @@
       <!-- =========================================================
            Card 2: กราฟรายเดือน
            ========================================================= -->
-      <div class="bg-white rounded-3xl p-5 sm:p-6 border border-stone-200 shadow-xs">
+      <div class="bg-white rounded-3xl p-5 sm:p-6 border border-stone-200/80 shadow-xs">
         <!-- Header with Dropdown -->
         <div class="flex items-center justify-between mb-4">
           <h2 class="text-2xl sm:text-3xl font-extrabold text-[#1a2e1a]">กราฟรายเดือน</h2>
@@ -98,9 +97,9 @@
               onclick="toggleMonthDropdown()"
               class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-stone-200 bg-white hover:bg-stone-50 text-base sm:text-lg font-bold text-stone-700 cursor-pointer shadow-2xs transition-all"
             >
-              <span class="iconify text-base text-stone-500" data-icon="mdi:calendar-outline"></span>
+              <span class="iconify text-lg text-stone-500" data-icon="solar:calendar-outline"></span>
               <span id="selectedMonthText">สิงหาคม 2569</span>
-              <span class="iconify text-base text-stone-400" data-icon="mdi:chevron-down"></span>
+              <span class="iconify text-base text-stone-400" data-icon="solar:alt-arrow-down-outline"></span>
             </button>
 
             <!-- Month Dropdown Menu -->
@@ -149,9 +148,8 @@
           </div>
         </div>
 
-        <!-- Bottom Highlight Box -->
-        <div class="flex items-center gap-2 mt-4 px-3.5 py-2.5 bg-[#eaf5eb] rounded-2xl">
-          <span class="text-base">📈</span>
+        <!-- Bottom Highlight Box (No Emoji) -->
+        <div class="mt-4 px-3.5 py-2.5 bg-[#ecfaee] rounded-2xl text-center">
           <span class="text-base sm:text-lg font-bold text-[#1e6b32]" id="monthlyAvgText">
             ค่าเฉลี่ยความสำเร็จของเดือนนี้: 78%
           </span>
@@ -161,7 +159,7 @@
       <!-- =========================================================
            Card 3: กราฟรายปี
            ========================================================= -->
-      <div class="bg-white rounded-3xl p-5 sm:p-6 border border-stone-200 shadow-xs">
+      <div class="bg-white rounded-3xl p-5 sm:p-6 border border-stone-200/80 shadow-xs">
         <!-- Header with Dropdown -->
         <div class="flex items-center justify-between mb-4">
           <h2 class="text-2xl sm:text-3xl font-extrabold text-[#1a2e1a]">กราฟรายปี</h2>
@@ -173,9 +171,9 @@
               onclick="toggleYearDropdown()"
               class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-stone-200 bg-white hover:bg-stone-50 text-base sm:text-lg font-bold text-stone-700 cursor-pointer shadow-2xs transition-all"
             >
-              <span class="iconify text-base text-stone-500" data-icon="mdi:calendar-outline"></span>
+              <span class="iconify text-lg text-stone-500" data-icon="solar:calendar-outline"></span>
               <span id="selectedYearText">2569</span>
-              <span class="iconify text-base text-stone-400" data-icon="mdi:chevron-down"></span>
+              <span class="iconify text-base text-stone-400" data-icon="solar:alt-arrow-down-outline"></span>
             </button>
 
             <!-- Year Dropdown Menu -->
@@ -217,47 +215,46 @@
           </div>
         </div>
 
-        <!-- Bottom Highlight Box -->
-        <div class="flex items-center gap-2 mt-4 px-3.5 py-2.5 bg-[#fff8e7] rounded-2xl">
-          <span class="text-base text-amber-500">⭐</span>
-          <span class="text-base sm:text-lg font-bold text-[#8f6412]">
+        <!-- Bottom Highlight Box (No Emoji) -->
+        <div class="mt-4 px-3.5 py-2.5 bg-[#ecfaee] rounded-2xl text-center">
+          <span class="text-base sm:text-lg font-bold text-[#1e6b32]">
             เดือนที่ดีที่สุด: กรกฎาคม (86%)
           </span>
         </div>
       </div>
 
       <!-- =========================================================
-           Card 4: สถิติของคุณ (3 Columns)
+           Card 4: สถิติเดือนนี้ (3 Columns)
            ========================================================= -->
-      <div class="bg-white rounded-3xl p-5 sm:p-6 border border-stone-200 shadow-xs">
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-[#1a2e1a] mb-4">สถิติของคุณ</h2>
+      <div class="bg-white rounded-3xl p-5 sm:p-6 border border-stone-200/80 shadow-xs">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-[#1a2e1a] mb-4">สถิติเดือนนี้</h2>
         
         <div class="grid grid-cols-3 gap-2.5 sm:gap-3">
           <!-- Done Card -->
-          <div class="flex flex-col items-center justify-center py-4 px-2 rounded-2xl bg-[#eaf7ee]">
-            <div class="w-7 h-7 rounded-full bg-white flex items-center justify-center shadow-2xs mb-2">
-              <span class="iconify text-lg text-[#1e6b32]" data-icon="mdi:check-circle"></span>
+          <div class="flex flex-col items-center justify-center py-4 px-2 rounded-2xl bg-[#ecfaee]">
+            <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-2xs mb-1.5">
+              <span class="iconify text-xl text-[#1e6b32]" data-icon="solar:check-circle-outline"></span>
             </div>
-            <span class="text-3xl sm:text-4xl font-extrabold text-[#1e6b32]">24</span>
-            <span class="text-base font-bold text-stone-600 mt-0.5">วันที่ทำครบ</span>
+            <span id="statDoneCount" class="text-3xl sm:text-4xl font-extrabold text-[#1e6b32]">0</span>
+            <span class="text-sm sm:text-base font-bold text-stone-600 mt-0.5">วันทำครบ</span>
           </div>
 
           <!-- Partial Card -->
-          <div class="flex flex-col items-center justify-center py-4 px-2 rounded-2xl bg-[#fff7e6]">
-            <div class="w-7 h-7 rounded-full bg-white flex items-center justify-center shadow-2xs mb-2">
-              <span class="iconify text-lg text-[#d97706]" data-icon="mdi:clock-time-four-outline"></span>
+          <div class="flex flex-col items-center justify-center py-4 px-2 rounded-2xl bg-[#fffbeb]">
+            <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-2xs mb-1.5">
+              <span class="iconify text-xl text-[#d97706]" data-icon="solar:clock-circle-outline"></span>
             </div>
-            <span class="text-3xl sm:text-4xl font-extrabold text-[#b45309]">4</span>
-            <span class="text-base font-bold text-stone-600 mt-0.5">วันที่ทำบางส่วน</span>
+            <span id="statPartialCount" class="text-3xl sm:text-4xl font-extrabold text-[#d97706]">0</span>
+            <span class="text-sm sm:text-base font-bold text-stone-600 mt-0.5">วันทำบางส่วน</span>
           </div>
 
           <!-- Missed Card -->
-          <div class="flex flex-col items-center justify-center py-4 px-2 rounded-2xl bg-[#fdeeed]">
-            <div class="w-7 h-7 rounded-full bg-white flex items-center justify-center shadow-2xs mb-2">
-              <span class="iconify text-lg text-[#dc2626]" data-icon="mdi:close-circle-outline"></span>
+          <div class="flex flex-col items-center justify-center py-4 px-2 rounded-2xl bg-[#fef2f2]">
+            <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-2xs mb-1.5">
+              <span class="iconify text-xl text-[#ef4444]" data-icon="solar:close-circle-outline"></span>
             </div>
-            <span class="text-3xl sm:text-4xl font-extrabold text-[#dc2626]">3</span>
-            <span class="text-base font-bold text-stone-600 mt-0.5">วันที่ไม่ได้ทำ</span>
+            <span id="statMissedCount" class="text-3xl sm:text-4xl font-extrabold text-[#ef4444]">0</span>
+            <span class="text-sm sm:text-base font-bold text-stone-600 mt-0.5">วันไม่ได้ทำ</span>
           </div>
         </div>
       </div>
@@ -265,20 +262,20 @@
       <!-- =========================================================
            Card 5: สถิติการทำต่อเนื่อง (2 Columns)
            ========================================================= -->
-      <div class="bg-white rounded-3xl p-5 sm:p-6 border border-stone-200 shadow-xs">
+      <div class="bg-white rounded-3xl p-5 sm:p-6 border border-stone-200/80 shadow-xs">
         <h2 class="text-2xl sm:text-3xl font-extrabold text-[#1a2e1a] mb-4">สถิติการทำต่อเนื่อง</h2>
         
         <div class="grid grid-cols-2 gap-3 sm:gap-4">
           <!-- Streak Now -->
-          <div class="py-4 px-4 rounded-2xl bg-[#fffbf2] text-center">
-            <p class="text-base sm:text-lg font-bold text-stone-600 mb-1.5">ทำต่อเนื่องตอนนี้</p>
-            <p class="text-2xl sm:text-3xl font-extrabold text-[#f59e0b]">7 วัน</p>
+          <div class="py-4 px-4 rounded-2xl bg-[#eff6ff] text-left">
+            <p class="text-base sm:text-lg font-bold text-stone-500 mb-1">ทำต่อเนื่องตอนนี้</p>
+            <p id="streakCurrent" class="text-2xl sm:text-3xl font-extrabold text-[#2563eb]">0 วัน</p>
           </div>
 
           <!-- Max Streak -->
-          <div class="py-4 px-4 rounded-2xl bg-[#eaf7ee] text-center">
-            <p class="text-base sm:text-lg font-bold text-stone-600 mb-1.5">ทำต่อเนื่องสูงสุด</p>
-            <p class="text-2xl sm:text-3xl font-extrabold text-[#1e6b32]">24 วัน</p>
+          <div class="py-4 px-4 rounded-2xl bg-[#ecfaee] text-left">
+            <p class="text-base sm:text-lg font-bold text-stone-500 mb-1">ทำต่อเนื่องสูงสุด</p>
+            <p id="streakMax" class="text-2xl sm:text-3xl font-extrabold text-[#1e6b32]">0 วัน</p>
           </div>
         </div>
       </div>
@@ -300,114 +297,223 @@
         95, 80, 90, 85, 100, 75, 90, 85, 100, 90, 85
       ],
       "มิถุนายน": [
-        70, 75, 80, 60, 85, 70, 75, 90, 60, 50,
-        75, 80, 70, 90, 65, 80, 60, 85, 75, 65,
-        90, 70, 80, 85, 60, 90, 75, 65, 85, 80
+        70, 75, 80, 85, 90, 75, 80, 85, 70, 75,
+        80, 85, 90, 75, 80, 85, 70, 75, 80, 85,
+        90, 75, 80, 85, 70, 75, 80, 85, 90, 80
       ]
     };
 
     // ข้อมูลรายปี (12 เดือน)
-    const YEARLY_DATA = [
-      { label: "ม.ค.", value: 75 },
-      { label: "ก.พ.", value: 82 },
-      { label: "มี.ค.", value: 72 },
-      { label: "เม.ย.", value: 80 },
-      { label: "พ.ค.", value: 78 },
-      { label: "มิ.ย.", value: 81 },
-      { label: "ก.ค.", value: 86, isBest: true },
-      { label: "ส.ค.", value: 78 },
-      { label: "ก.ย.", value: 0 },
-      { label: "ต.ค.", value: 0 },
-      { label: "พ.ย.", value: 0 },
-      { label: "ธ.ค.", value: 0 },
-    ];
+    const YEARLY_RAW_DATA = {
+      "2569": [
+        { month: "ม.ค.", percent: 78 },
+        { month: "ก.พ.", percent: 82 },
+        { month: "มี.ค.", percent: 76 },
+        { month: "เม.ย.", percent: 80 },
+        { month: "พ.ค.", percent: 79 },
+        { month: "มิ.ย.", percent: 81 },
+        { month: "ก.ค.", percent: 86, best: true },
+        { month: "ส.ค.", percent: 78 },
+        { month: "ก.ย.", percent: 0 },
+        { month: "ต.ค.", percent: 0 },
+        { month: "พ.ย.", percent: 0 },
+        { month: "ธ.ค.", percent: 0 }
+      ],
+      "2568": [
+        { month: "ม.ค.", percent: 70 },
+        { month: "ก.พ.", percent: 72 },
+        { month: "มี.ค.", percent: 75 },
+        { month: "เม.ย.", percent: 78 },
+        { month: "พ.ค.", percent: 80 },
+        { month: "มิ.ย.", percent: 82 },
+        { month: "ก.ค.", percent: 85, best: true },
+        { month: "ส.ค.", percent: 80 },
+        { month: "ก.ย.", percent: 78 },
+        { month: "ต.ค.", percent: 82 },
+        { month: "พ.ย.", percent: 84 },
+        { month: "ธ.ค.", percent: 85 }
+      ]
+    };
 
-    let currentMonth = "สิงหาคม";
-    let currentYear = "2569";
+    const thMonths = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+    const nowDate = new Date();
+    let currentMonth = thMonths[nowDate.getMonth()];
+    let currentYear = String(nowDate.getFullYear() + 543);
 
     // Toggle Dropdowns
     function toggleMonthDropdown() {
       const menu = document.getElementById("monthDropdownMenu");
       menu.classList.toggle("hidden");
-      document.getElementById("yearDropdownMenu").classList.add("hidden");
     }
 
     function toggleYearDropdown() {
       const menu = document.getElementById("yearDropdownMenu");
       menu.classList.toggle("hidden");
-      document.getElementById("monthDropdownMenu").classList.add("hidden");
     }
 
-    function selectMonth(key, label) {
-      currentMonth = key;
-      document.getElementById("selectedMonthText").innerText = label;
+    // Close on outside click
+    document.addEventListener("click", (e) => {
+      const monthWrapper = document.getElementById("monthDropdownWrapper");
+      if (monthWrapper && !monthWrapper.contains(e.target)) {
+        document.getElementById("monthDropdownMenu")?.classList.add("hidden");
+      }
+      const yearWrapper = document.getElementById("yearDropdownWrapper");
+      if (yearWrapper && !yearWrapper.contains(e.target)) {
+        document.getElementById("yearDropdownMenu")?.classList.add("hidden");
+      }
+    });
+
+    function selectMonth(monthKey, displayText) {
+      currentMonth = monthKey;
+      document.getElementById("selectedMonthText").innerText = displayText;
       document.getElementById("monthDropdownMenu").classList.add("hidden");
-      renderMonthlyChart();
+      renderDailyChart();
     }
 
-    function selectYear(year) {
-      currentYear = year;
-      document.getElementById("selectedYearText").innerText = year;
+    function selectYear(yearKey) {
+      currentYear = yearKey;
+      document.getElementById("selectedYearText").innerText = yearKey;
       document.getElementById("yearDropdownMenu").classList.add("hidden");
       renderYearlyChart();
     }
 
-    // ปิด dropdown เมื่อคลิกข้างนอก
-    document.addEventListener("click", (e) => {
-      const monthWrapper = document.getElementById("monthDropdownWrapper");
-      const yearWrapper = document.getElementById("yearDropdownWrapper");
-      if (monthWrapper && !monthWrapper.contains(e.target)) {
-        document.getElementById("monthDropdownMenu").classList.add("hidden");
-      }
-      if (yearWrapper && !yearWrapper.contains(e.target)) {
-        document.getElementById("yearDropdownMenu").classList.add("hidden");
-      }
-    });
+    function updateRealStats() {
+      const totalDaysInMonth = new Date(nowDate.getFullYear(), nowDate.getMonth() + 1, 0).getDate();
+      document.getElementById("totalDays").innerText = totalDaysInMonth;
 
-    // วาดกราฟรายเดือน
-    function renderMonthlyChart() {
-      const container = document.getElementById("dailyChartBars");
-      container.innerHTML = "";
-      const data = MONTHLY_RAW_DATA[currentMonth] || MONTHLY_RAW_DATA["สิงหาคม"];
+      let historyMap = {};
+      try {
+        const savedHistory = localStorage.getItem("daily_activity_history");
+        if (savedHistory) historyMap = JSON.parse(savedHistory);
+      } catch (e) {}
 
-      data.forEach(val => {
-        const bar = document.createElement("div");
-        bar.className = "flex-1 rounded-t-xs transition-all duration-500";
-        bar.style.height = `${val}%`;
-        bar.style.backgroundColor = val > 0 ? "#1e6b32" : "transparent";
-        container.appendChild(bar);
+      // ตรวจสอบวันนี้
+      let todayDone = false;
+      let todayPartial = false;
+      const savedTodayTasks = localStorage.getItem("exercise_tasks_data");
+      if (savedTodayTasks) {
+        try {
+          const tasks = JSON.parse(savedTodayTasks);
+          if (tasks.length > 0) {
+            const completedCount = tasks.filter(t => t.completed).length;
+            if (completedCount === tasks.length) todayDone = true;
+            else if (completedCount > 0) todayPartial = true;
+          }
+        } catch (e) {}
+      }
+
+      let doneCount = todayDone ? 1 : 0;
+      let partialCount = todayPartial ? 1 : 0;
+
+      Object.keys(historyMap).forEach(k => {
+        if (k.startsWith(`${nowDate.getFullYear()}-${String(nowDate.getMonth() + 1).padStart(2, '0')}`)) {
+          if (historyMap[k] === 'done') doneCount++;
+          else if (historyMap[k] === 'partial') partialCount++;
+        }
       });
 
-      const validValues = data.filter(v => v > 0);
-      const avg = Math.round(validValues.reduce((a, b) => a + b, 0) / validValues.length);
+      const missedCount = Math.max(0, nowDate.getDate() - (doneCount + partialCount));
+      const percent = Math.round((doneCount / totalDaysInMonth) * 100);
+
+      document.getElementById("daysCompleted").innerText = doneCount;
+      document.getElementById("overallPercent").innerText = percent;
+      document.getElementById("statDoneCount").innerText = doneCount;
+      document.getElementById("statPartialCount").innerText = partialCount;
+      document.getElementById("statMissedCount").innerText = missedCount;
+
+      const streakDays = doneCount > 0 ? doneCount : (todayDone ? 1 : 0);
+      document.getElementById("streakCurrent").innerText = `${streakDays} วัน`;
+      document.getElementById("streakMax").innerText = `${streakDays} วัน`;
+
+      const circle = document.getElementById("overallCircle");
+      if (circle) {
+        const radius = 38;
+        const circumference = 2 * Math.PI * radius; // 238.76
+        const offset = circumference - (percent / 100) * circumference;
+        circle.style.strokeDashoffset = offset;
+      }
+    }
+
+    // Render กราฟรายวัน (30 วัน)
+    function renderDailyChart() {
+      const barsContainer = document.getElementById("dailyChartBars");
+      barsContainer.innerHTML = "";
+
+      const days = MONTHLY_RAW_DATA[currentMonth] || MONTHLY_RAW_DATA["สิงหาคม"];
+      let activeDaysCount = 0;
+      let totalPercent = 0;
+
+      days.forEach((val) => {
+        if (val > 0) {
+          activeDaysCount++;
+          totalPercent += val;
+        }
+
+        const bar = document.createElement("div");
+        bar.className = "flex-1 flex flex-col justify-end items-center h-full group relative cursor-pointer";
+        
+        // Tooltip
+        const tooltip = document.createElement("div");
+        tooltip.className = "hidden group-hover:block absolute -top-8 bg-stone-800 text-white text-[10px] sm:text-xs py-0.5 px-1.5 rounded shadow z-20 whitespace-nowrap";
+        tooltip.innerText = `${val}%`;
+        bar.appendChild(tooltip);
+
+        // Bar Fill
+        const fill = document.createElement("div");
+        fill.className = "w-full rounded-t-sm transition-all duration-300";
+        fill.style.height = `${val}%`;
+        fill.style.backgroundColor = val > 0 ? "#276735" : "transparent";
+        bar.appendChild(fill);
+
+        barsContainer.appendChild(bar);
+      });
+
+      const avg = activeDaysCount > 0 ? Math.round(totalPercent / activeDaysCount) : 0;
       document.getElementById("monthlyAvgText").innerText = `ค่าเฉลี่ยความสำเร็จของเดือนนี้: ${avg}%`;
     }
 
-    // วาดกราฟรายปี
+    // Render กราฟรายปี (12 เดือน)
     function renderYearlyChart() {
-      const container = document.getElementById("yearlyChartBars");
+      const barsContainer = document.getElementById("yearlyChartBars");
       const labelsContainer = document.getElementById("yearlyChartLabels");
-      container.innerHTML = "";
+      barsContainer.innerHTML = "";
       labelsContainer.innerHTML = "";
 
-      YEARLY_DATA.forEach(item => {
+      const months = YEARLY_RAW_DATA[currentYear] || YEARLY_RAW_DATA["2569"];
+
+      months.forEach((m) => {
         // Bar
         const bar = document.createElement("div");
-        bar.className = "flex-1 rounded-t-md transition-all duration-500";
-        bar.style.height = `${item.value}%`;
-        bar.style.backgroundColor = item.isBest ? "#5db36a" : item.value > 0 ? "#1e6b32" : "transparent";
-        container.appendChild(bar);
+        bar.className = "flex-1 flex flex-col justify-end items-center h-full group relative cursor-pointer";
+        
+        // Tooltip
+        if (m.percent > 0) {
+          const tooltip = document.createElement("div");
+          tooltip.className = "hidden group-hover:block absolute -top-8 bg-stone-800 text-white text-[10px] sm:text-xs py-0.5 px-1.5 rounded shadow z-20 whitespace-nowrap";
+          tooltip.innerText = `${m.percent}%`;
+          bar.appendChild(tooltip);
+        }
+
+        // Fill
+        const fill = document.createElement("div");
+        fill.className = "w-full rounded-t-sm transition-all duration-300";
+        fill.style.height = `${m.percent}%`;
+        fill.style.backgroundColor = m.best ? "#52b75f" : (m.percent > 0 ? "#276735" : "transparent");
+        bar.appendChild(fill);
+
+        barsContainer.appendChild(bar);
 
         // Label
-        const label = document.createElement("span");
-        label.className = "flex-1 text-center text-xs sm:text-sm text-stone-500 font-semibold";
-        label.innerText = item.label;
-        labelsContainer.appendChild(label);
+        const lbl = document.createElement("div");
+        lbl.className = "flex-1 text-center truncate text-[10px] sm:text-xs";
+        lbl.innerText = m.month;
+        labelsContainer.appendChild(lbl);
       });
     }
 
-    // เริ่มต้นแสดงผล
-    renderMonthlyChart();
+    // Init
+    updateRealStats();
+    renderDailyChart();
     renderYearlyChart();
   </script>
 </body>

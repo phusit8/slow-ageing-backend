@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,54 +12,75 @@
   <!-- LIFF SDK -->
   <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap');
+
     body {
-      font-family: 'Prompt', sans-serif;
+      font-family: 'Sarabun', sans-serif;
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-start items-center py-6 sm:py-8 px-4 sm:px-6" style="background-color: #f5f7f5;">
+
+<body class="min-h-screen flex flex-col justify-start items-center py-6 sm:py-8 bg-white" style="background-color: #ffffff;">
 
   <!-- Container -->
-  <div class="w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto flex flex-col space-y-6 sm:space-y-7 pb-16">
-    
-    <!-- Top Header -->
-    <header class="flex items-center justify-between pt-2 pb-1">
-      <div class="flex items-center gap-3">
-        <span id="greetingIcon" class="text-4xl sm:text-5xl text-amber-500">☀️</span>
-        <h1 id="greetingText" class="text-3xl sm:text-4xl font-extrabold tracking-tight" style="color: #1a2e1a;">
-          สวัสดีตอนเช้า
-        </h1>
-      </div>
+  <div class="w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto flex flex-col space-y-6 sm:space-y-7 pb-16 px-4 sm:px-6">
 
-      <a href="/profile" class="flex items-center gap-2 px-5 py-3 rounded-2xl text-white text-lg sm:text-xl font-bold shadow-md hover:opacity-95 active:scale-95 transition-transform cursor-pointer" style="background: #2d7a3a;">
-        <span class="iconify text-2xl" data-icon="mdi:account-circle-outline"></span>
-        <span>โปรไฟล์</span>
-      </a>
-    </header>
+    <!-- ===== Header Section with SVG BG ===== -->
+    <div class="relative rounded-3xl overflow-hidden"
+      style="min-height: 232px; margin-left: -1rem; margin-right: -1rem; width: calc(100% + 2rem);">
 
-    <!-- User Card -->
-    <div class="flex items-center gap-5 py-3 px-2 bg-white/60 rounded-3xl border border-stone-200/60">
-      <img
-        id="userPicture"
-        src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&auto=format&fit=crop&q=80"
-        alt="Profile"
-        class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover shadow-md border-4 border-white ring-4 ring-emerald-100 flex-shrink-0"
-      />
-      <div class="flex flex-col space-y-1">
-        <h2 id="userName" class="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight" style="color: #1a2e1a;">
-          คุณยายสมศรี
-        </h2>
-        <div class="flex items-center gap-2 text-lg sm:text-xl font-bold" style="color: #2d7a3a;">
-          <span class="iconify text-2xl shrink-0" data-icon="mdi:map-marker-outline"></span>
-          <span id="userVillage">ชุมชนบ้านสุขใจ</span>
+      <!-- SVG Background -->
+      <img src="/images/headermain.svg" alt=""
+        class="absolute inset-0 w-full h-full object-cover object-top pointer-events-none select-none"
+        aria-hidden="true" />
+
+      <!-- Content over SVG -->
+      <div class="relative z-10 px-5 sm:px-6 pt-6 pb-5 flex flex-col gap-3">
+
+        <!-- Greeting Row -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-start gap-2">
+            <!-- Sun Icon -->
+            <span id="greetingIcon" class="iconify text-3xl sm:text-4xl mt-0.5 shrink-0 text-amber-500" data-icon="solar:sun-2-outline"></span>
+            <!-- Text column -->
+            <div class="flex flex-col gap-0.5">
+              <h1 id="greetingText" class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight" style="color: #1a2e1a;">
+                สวัสดีตอนเช้า
+              </h1>
+              <div class="flex items-center gap-1.5 text-base sm:text-lg font-semibold" style="color: #3a5f3a;">
+                <span class="iconify text-lg shrink-0" data-icon="solar:calendar-outline"></span>
+                <span id="currentThaiDate">-</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Profile button -->
+          <a href="/profile"
+            class="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-2xl text-white shadow-md hover:opacity-95 active:scale-95 transition-transform cursor-pointer shrink-0"
+            style="background: #2d7a3a;">
+            <span class="iconify text-3xl sm:text-4xl" data-icon="solar:user-circle-outline"></span>
+          </a>
         </div>
-        <div class="flex items-center gap-2 text-base sm:text-lg font-semibold" style="color: #4a5d4e;">
-          <span class="iconify text-xl shrink-0" data-icon="mdi:calendar-month-outline"></span>
-          <span id="currentThaiDate">-</span>
+
+        <!-- User Card -->
+        <div class="flex items-center gap-4 mt-1">
+          <img id="userPicture"
+            src="/images/headermain.svg"
+            alt="Profile" class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover bg-emerald-100 flex-shrink-0" />
+          <div class="flex flex-col gap-1">
+            <h2 id="userName" class="text-2xl sm:text-3xl font-extrabold leading-tight" style="color: #1a2e1a;">
+              ผู้ใช้งาน
+            </h2>
+            <div class="flex items-center gap-1.5 text-lg sm:text-xl font-bold" style="color: #2d7a3a;">
+              <span class="iconify text-xl shrink-0" data-icon="solar:map-point-outline"></span>
+              <span id="userVillage">-</span>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
+
 
     <!-- Progress Card -->
     <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-stone-200">
@@ -67,24 +89,14 @@
       </h3>
 
       <div class="flex items-center justify-between gap-5 sm:gap-7">
-        
+
         <!-- ฝั่งซ้าย: วงกลม Progress -->
         <div class="relative w-32 h-32 sm:w-36 sm:h-36 flex items-center justify-center shrink-0">
           <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="38" fill="transparent" stroke="#e2f5e8" stroke-width="12" />
-            <circle
-              id="progressCircle"
-              cx="50"
-              cy="50"
-              r="38"
-              fill="transparent"
-              stroke="#2d7a3a"
-              stroke-width="12"
-              stroke-dasharray="238.7"
-              stroke-dashoffset="238.7"
-              stroke-linecap="round"
-              class="transition-all duration-700 ease-out"
-            />
+            <circle id="progressCircle" cx="50" cy="50" r="38" fill="transparent" stroke="#2d7a3a" stroke-width="12"
+              stroke-dasharray="238.7" stroke-dashoffset="238.7" stroke-linecap="round"
+              class="transition-all duration-700 ease-out" />
           </svg>
           <div class="absolute inset-0 flex flex-col items-center justify-center">
             <span class="text-3xl sm:text-4xl font-extrabold text-[#1a2e1a]">
@@ -104,9 +116,11 @@
             </span>
           </div>
 
-          <a href="/tasks" class="flex items-center justify-between px-5 sm:px-6 py-3.5 sm:py-4 rounded-2xl text-white text-lg sm:text-xl font-extrabold shadow-md hover:opacity-95 active:scale-95 transition-transform cursor-pointer w-full gap-2" style="background: #2d7a3a;">
+          <a href="/tasks"
+            class="flex items-center justify-between px-5 sm:px-6 py-3.5 sm:py-4 rounded-2xl text-white text-lg sm:text-xl font-extrabold shadow-md hover:opacity-95 active:scale-95 transition-transform cursor-pointer w-full gap-2"
+            style="background: #2d7a3a;">
             <span>ดูภารกิจวันนี้</span>
-            <span class="iconify text-2xl" data-icon="mdi:chevron-right"></span>
+            <span class="iconify text-2xl" data-icon="solar:alt-arrow-right-outline"></span>
           </a>
         </div>
 
@@ -115,57 +129,70 @@
 
     <!-- Action Menu Cards List -->
     <div class="space-y-4 pt-1">
-      
+
       <!-- Card 1 -->
-      <a href="/tasks" class="group flex items-center justify-between p-5 sm:p-6 rounded-3xl bg-white shadow-sm border border-stone-200 hover:border-emerald-300 transition-all cursor-pointer active:scale-[0.99] block">
+      <a href="/tasks"
+        class="group flex items-center justify-between p-5 sm:p-6 rounded-3xl bg-white shadow-sm border border-stone-200 hover:border-emerald-300 transition-all cursor-pointer active:scale-[0.99] block">
         <div class="flex items-center gap-4 sm:gap-5">
-          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-xs" style="background: #eef6ff;">
-            <span class="iconify text-3xl sm:text-4xl" data-icon="mdi:dumbbell" style="color: #0066cc;"></span>
+          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-xs"
+            style="background: #eef6ff;">
+            <span class="iconify text-3xl sm:text-4xl" data-icon="solar:dumbbell-large-outline" style="color: #0066cc;"></span>
           </div>
           <div>
             <h4 class="text-2xl sm:text-3xl font-extrabold text-[#1a2e1a]">ภารกิจวันนี้</h4>
             <p class="text-base sm:text-lg text-stone-600 font-semibold mt-1">ออกกำลังกายและกิจกรรมเพื่อสุขภาพ</p>
           </div>
         </div>
-        <span class="iconify text-3xl text-stone-400 group-hover:text-stone-800 transition-colors shrink-0 ml-2" data-icon="mdi:chevron-right"></span>
+        <span class="iconify text-3xl text-stone-400 group-hover:text-stone-800 transition-colors shrink-0 ml-2"
+          data-icon="solar:alt-arrow-right-outline"></span>
       </a>
 
       <!-- Card 2 -->
-      <a href="/calendar" class="group flex items-center justify-between p-5 sm:p-6 rounded-3xl bg-white shadow-sm border border-stone-200 hover:border-emerald-300 transition-all cursor-pointer active:scale-[0.99] block">
+      <a href="/calendar"
+        class="group flex items-center justify-between p-5 sm:p-6 rounded-3xl bg-white shadow-sm border border-stone-200 hover:border-emerald-300 transition-all cursor-pointer active:scale-[0.99] block">
         <div class="flex items-center gap-4 sm:gap-5">
-          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-xs" style="background: #f2f9ed;">
-            <span class="iconify text-3xl sm:text-4xl" data-icon="mdi:calendar-month-outline" style="color: #438e12;"></span>
+          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-xs"
+            style="background: #f2f9ed;">
+            <span class="iconify text-3xl sm:text-4xl" data-icon="solar:calendar-outline"
+              style="color: #438e12;"></span>
           </div>
           <div>
-            <h4 class="text-2xl sm:text-3xl font-extrabold text-[#1a2e1a]">ปฏิทินรายเดือน</h4>
-            <p class="text-base sm:text-lg text-stone-600 font-semibold mt-1">ดูตารางกิจกรรมประจำเดือน</p>
+            <h4 class="text-2xl sm:text-3xl font-extrabold text-[#1a2e1a]">ความก้าวหน้ารายเดือน</h4>
+            <p class="text-base sm:text-lg text-stone-600 font-semibold mt-1">ดูสถิติและความก้าวหน้าประจำเดือน</p>
           </div>
         </div>
-        <span class="iconify text-3xl text-stone-400 group-hover:text-stone-800 transition-colors shrink-0 ml-2" data-icon="mdi:chevron-right"></span>
+        <span class="iconify text-3xl text-stone-400 group-hover:text-stone-800 transition-colors shrink-0 ml-2"
+          data-icon="solar:alt-arrow-right-outline"></span>
       </a>
 
       <!-- Card 3 -->
-      <a href="/progress" class="group flex items-center justify-between p-5 sm:p-6 rounded-3xl bg-white shadow-sm border border-stone-200 hover:border-emerald-300 transition-all cursor-pointer active:scale-[0.99] block">
+      <a href="/progress"
+        class="group flex items-center justify-between p-5 sm:p-6 rounded-3xl bg-white shadow-sm border border-stone-200 hover:border-emerald-300 transition-all cursor-pointer active:scale-[0.99] block">
         <div class="flex items-center gap-4 sm:gap-5">
-          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-xs" style="background: #eef6ff;">
-            <span class="iconify text-3xl sm:text-4xl" data-icon="mdi:chart-box-outline" style="color: #0066cc;"></span>
+          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-xs"
+            style="background: #eef6ff;">
+            <span class="iconify text-3xl sm:text-4xl" data-icon="solar:chart-2-outline" style="color: #0066cc;"></span>
           </div>
           <div>
             <h4 class="text-2xl sm:text-3xl font-extrabold text-[#1a2e1a]">ความก้าวหน้า</h4>
             <p class="text-base sm:text-lg text-stone-600 font-semibold mt-1">ดูสถิติและความก้าวหน้าของท่าน</p>
           </div>
         </div>
-        <span class="iconify text-3xl text-stone-400 group-hover:text-stone-800 transition-colors shrink-0 ml-2" data-icon="mdi:chevron-right"></span>
+        <span class="iconify text-3xl text-stone-400 group-hover:text-stone-800 transition-colors shrink-0 ml-2"
+          data-icon="solar:alt-arrow-right-outline"></span>
       </a>
 
     </div>
   </div>
 
+  <script id="serverExercisesData" type="application/json">
+    <%- JSON.stringify(typeof exercises !== 'undefined' ? exercises : []) %>
+  </script>
   <script>
     // ตัวแปร Default
     let totalTasks = 4;
     let completedTasksCount = 3;
-    
+
     // ตั้งค่าเวลาทักทายและวันที่ภาษาไทย
     function setDateAndGreeting() {
       const now = new Date();
@@ -177,24 +204,24 @@
       const monthName = months[now.getMonth()];
       const thaiYear = now.getFullYear() + 543;
 
-      document.getElementById("currentThaiDate").innerText = `วัน${dayName}ที่ ${dateNum} ${monthName} ${thaiYear}`;
+      document.getElementById("currentThaiDate").innerText = `วันที่ ${dateNum} ${monthName} ${thaiYear}`;
 
       const hour = now.getHours();
       let greeting = "สวัสดีตอนเช้า";
-      let icon = "☀️";
+      let icon = "solar:sun-2-outline";
 
       if (hour >= 12 && hour < 17) {
         greeting = "สวัสดีตอนบ่าย";
-        icon = "🌤️";
+        icon = "solar:sun-fog-outline";
       } else if (hour >= 17 && hour < 21) {
         greeting = "สวัสดีตอนเย็น";
-        icon = "🌅";
+        icon = "solar:sunset-outline";
       } else if (hour >= 21 || hour < 6) {
         greeting = "สวัสดีตอนค่ำ";
-        icon = "🌙";
+        icon = "solar:moon-outline";
       }
 
-      document.getElementById("greetingIcon").innerText = icon;
+      document.getElementById("greetingIcon").setAttribute("data-icon", icon);
       document.getElementById("greetingText").innerText = greeting;
     }
 
@@ -215,6 +242,7 @@
 
     // 🔴 กำหนด LIFF ID 
     const LIFF_ID = "<%= LIFF_ID %>";
+    const serverExercises = JSON.parse(document.getElementById('serverExercisesData')?.textContent || '[]');
 
     async function initData() {
       // 1. จัดการวันที่และทักทาย
@@ -234,34 +262,60 @@
       }
 
       // 3. ดึงความก้าวหน้าของภารกิจวันนี้
+      if (serverExercises && serverExercises.length > 0) {
+        totalTasks = serverExercises.length;
+      }
+
       const savedTasks = localStorage.getItem("exercise_tasks_data");
       if (savedTasks) {
         try {
           const tasks = JSON.parse(savedTasks);
-          totalTasks = tasks.length;
+          if (!serverExercises || serverExercises.length === 0) {
+            totalTasks = tasks.length;
+          }
           completedTasksCount = tasks.filter(t => t.completed).length;
         } catch (e) {
           console.error("Parse tasks error", e);
         }
+      } else {
+        completedTasksCount = 0;
       }
 
       updateProgress(completedTasksCount, totalTasks);
 
-      // 4. เชื่อมต่อ LIFF (ถ้ามีข้อมูลรูปใหม่)
+      // 4. เชื่อมต่อ LIFF และดึงข้อมูลจริงจาก Database
       try {
-        await liff.init({ liffId: LIFF_ID });
-        if (liff.isLoggedIn()) {
-          const lineProfile = await liff.getProfile();
-          if (lineProfile.pictureUrl && (!savedProfile || !JSON.parse(savedProfile).pictureUrl)) {
-            document.getElementById("userPicture").src = lineProfile.pictureUrl;
+        let lineUserId = null;
+        if (typeof liff !== "undefined") {
+          await liff.init({ liffId: LIFF_ID });
+          if (liff.isLoggedIn()) {
+            const lineProfile = await liff.getProfile();
+            lineUserId = lineProfile.userId;
+            if (lineProfile.pictureUrl) {
+              document.getElementById("userPicture").src = lineProfile.pictureUrl;
+            }
+          }
+        }
+
+        const targetUserId = lineUserId || (savedProfile ? JSON.parse(savedProfile).userId : "U_DEV");
+        if (targetUserId) {
+          const res = await fetch(`/api/members/${targetUserId}`);
+          if (res.ok) {
+            const dbMember = await res.json();
+            if (dbMember) {
+              if (dbMember.full_name) document.getElementById("userName").innerText = dbMember.full_name;
+              if (dbMember.community) document.getElementById("userVillage").innerText = dbMember.community;
+              if (dbMember.profile_image) document.getElementById("userPicture").src = dbMember.profile_image;
+            }
           }
         }
       } catch (err) {
-        console.error("LIFF Init Error:", err);
+        console.error("LIFF / DB Init Error:", err);
       }
     }
 
     initData();
   </script>
 </body>
+
 </html>
